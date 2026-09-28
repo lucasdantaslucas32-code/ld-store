@@ -1,0 +1,2281 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LD STORE | Serviços Digitais — Spotify, Netflix, Disney+ e mais</title>
+<meta name="description" content="LD STORE — assinaturas digitais com atendimento rápido: Spotify, Netflix, Disney+, HBO Max, Prime Video, Canva Pro e mais. Peça pelo site e continue no WhatsApp.">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#0c0724">
+<meta property="og:type" content="website">
+<meta property="og:title" content="LD STORE | Serviços digitais ao seu alcance">
+<meta property="og:description" content="Assinaturas digitais com atendimento rápido e direto pelo WhatsApp. Spotify, Netflix, Disney+ e muito mais.">
+<meta property="og:locale" content="pt_BR">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="LD STORE">
+<style>
+  :root {
+    --bg-0: #060312;
+    --bg-1: #0c0724;
+    --bg-2: #140b33;
+    --surface: rgba(255,255,255,0.055);
+    --surface-2: rgba(255,255,255,0.09);
+    --border: rgba(255,255,255,0.10);
+    --border-strong: rgba(255,255,255,0.18);
+    --purple: #8b5cf6;
+    --purple-soft: #b9a4ff;
+    --blue: #3fc4ff;
+    --text: #f3f0fb;
+    --text-dim: #ada4c9;
+    --text-mute: #746b93;
+    --success: #34d399;
+    --danger: #fb7185;
+    --warn: #fbbf24;
+    --radius-lg: 22px;
+    --radius-md: 14px;
+    --radius-sm: 9px;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  html { scroll-padding-top: calc(120px + env(safe-area-inset-top, 0px)); scroll-behavior: smooth; }
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    background: radial-gradient(1200px 700px at 15% -10%, #1c0f4a 0%, transparent 60%),
+                radial-gradient(1000px 600px at 100% 0%, #0a2540 0%, transparent 55%),
+                var(--bg-0);
+    color: var(--text);
+    font-family: -apple-system, system-ui, 'Segoe UI', Roboto, Arial, sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  h1, h2, h3, .display { font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif; }
+  a { color: inherit; }
+  img { max-width: 100%; display: block; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+  button { font-family: inherit; cursor: pointer; }
+  input, select, textarea { font-family: inherit; }
+
+  .skip-link {
+    position: absolute; left: 12px; top: -60px; z-index: 200;
+    background: var(--purple); color: #fff; padding: 10px 16px; border-radius: 10px;
+    font-weight: 600; font-size: 0.85rem; transition: top .15s ease;
+  }
+  .skip-link:focus { top: 12px; }
+  .visually-hidden {
+    position: absolute; width: 1px; height: 1px; overflow: hidden;
+    clip: rect(0,0,0,0); white-space: nowrap; border: 0; padding: 0; margin: -1px;
+  }
+
+  /* ---------- NOTICES ---------- */
+  #noticesWrap { position: relative; z-index: 55; }
+  .notice-bar {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 16px; font-size: 0.84rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .notice-bar.info { background: rgba(63,196,255,0.1); color: #bfeaff; }
+  .notice-bar.warn { background: rgba(251,191,36,0.1); color: #ffe6a8; }
+  .notice-bar.promo { background: rgba(139,92,246,0.14); color: #e3d8ff; }
+  .notice-bar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .notice-text { flex: 1; }
+  .notice-close { background: transparent; border: none; color: inherit; font-size: 1rem; opacity: 0.75; padding: 4px 6px; flex-shrink: 0; }
+  .notice-close:hover { opacity: 1; }
+
+  /* ---------- NAV ---------- */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    padding-top: env(safe-area-inset-top, 0px);
+    background: rgba(8,4,22,0.78);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 64px; padding: 10px 0; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.05rem; letter-spacing: -0.01em; flex-shrink: 0; }
+  .brand-mark {
+    width: 34px; height: 34px; border-radius: 10px;
+    background: linear-gradient(135deg, var(--purple), var(--blue));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; flex-shrink: 0;
+    box-shadow: 0 0 24px rgba(139,92,246,0.45);
+  }
+  .nav-links { display: none; align-items: center; gap: 4px; }
+  .nav-links a {
+    text-decoration: none; font-size: 0.88rem; font-weight: 600; color: var(--text-dim);
+    padding: 8px 12px; border-radius: 100px; transition: color .15s ease, background .15s ease;
+  }
+  .nav-links a:hover { color: var(--text); background: var(--surface); }
+  .nav-right { display: flex; align-items: center; gap: 10px; }
+  .status-pill {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 7px 13px; border-radius: 100px;
+    background: var(--surface); border: 1px solid var(--border);
+    font-size: 0.76rem; font-weight: 600; white-space: nowrap;
+  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot.on { background: var(--success); box-shadow: 0 0 10px var(--success); animation: pulse 2s infinite; }
+  .dot.off { background: var(--danger); box-shadow: 0 0 10px var(--danger); }
+  @keyframes pulse { 0%,100%{ opacity:1 } 50%{ opacity:0.45 } }
+  .hamburger {
+    display: flex; align-items: center; justify-content: center;
+    width: 40px; height: 40px; border-radius: 10px;
+    background: var(--surface); border: 1px solid var(--border); color: var(--text);
+    font-size: 1.1rem;
+  }
+  .mobile-menu {
+    display: none; flex-direction: column; gap: 2px;
+    border-top: 1px solid var(--border); padding: 10px 20px 16px;
+  }
+  .mobile-menu.show { display: flex; }
+  .mobile-menu a {
+    text-decoration: none; color: var(--text-dim); font-weight: 600; font-size: 0.94rem;
+    padding: 12px 8px; border-radius: 10px;
+  }
+  .mobile-menu a:hover { background: var(--surface); color: var(--text); }
+  @media (min-width: 760px) {
+    .nav-links { display: flex; }
+    .hamburger { display: none; }
+    .mobile-menu { display: none !important; }
+  }
+
+  /* ---------- BUTTONS ---------- */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 15px 26px; border-radius: 100px; font-weight: 600; font-size: 0.96rem;
+    border: 1px solid transparent; transition: transform .15s ease, box-shadow .15s ease, opacity .15s ease;
+    text-decoration: none; min-height: 48px;
+  }
+  .btn:active { transform: scale(0.97); }
+  .btn-primary { background: linear-gradient(135deg, var(--purple), #6f4de6); color: #fff; box-shadow: 0 8px 28px rgba(139,92,246,0.35); }
+  .btn-ghost { background: var(--surface); border-color: var(--border-strong); color: var(--text); }
+  .btn-wpp { background: linear-gradient(135deg, #25d366, #1fb356); color: #06210f; }
+  .btn-sm { padding: 10px 16px; font-size: 0.84rem; min-height: 38px; }
+  .btn-block { width: 100%; }
+  .btn:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  /* ---------- HERO ---------- */
+  .hero { padding: 52px 0 36px; text-align: center; }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 14px; border-radius: 100px;
+    background: var(--surface); border: 1px solid var(--border);
+    font-size: 0.8rem; color: var(--text-dim); margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-size: clamp(2rem, 6.6vw, 3.2rem);
+    line-height: 1.08; letter-spacing: -0.02em;
+    margin: 0 0 16px;
+    background: linear-gradient(120deg, #ffffff 30%, var(--purple-soft) 75%, var(--blue) 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero p.sub { max-width: 480px; margin: 0 auto 28px; color: var(--text-dim); font-size: 1.02rem; }
+  .hero-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+  .closed-banner {
+    max-width: 560px; margin: 26px auto 0; text-align: left;
+    padding: 16px 18px; border-radius: var(--radius-md);
+    background: rgba(251,113,133,0.08); border: 1px solid rgba(251,113,133,0.28);
+    font-size: 0.9rem; color: var(--text-dim); display: none;
+  }
+  .closed-banner.show { display: block; }
+  .closed-banner .next-open { color: var(--purple-soft); font-weight: 600; }
+
+  /* ---------- WELCOME ---------- */
+  /* ---------- WELCOME (removida — conteúdo incorporado ao hero) ---------- */
+
+  /* ---------- SECTION HEADER ---------- */
+  section { padding: 20px 0 54px; scroll-margin-top: 90px; }
+  .sec-head { text-align: center; margin-bottom: 26px; }
+  .sec-head h2 { font-size: clamp(1.45rem, 4vw, 1.9rem); margin: 0 0 8px; letter-spacing: -0.01em; }
+  .sec-head p { color: var(--text-dim); margin: 0; font-size: 0.94rem; }
+
+  /* ---------- CARDS BASE ---------- */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    transition: border-color .2s ease;
+  }
+  .card:hover { border-color: var(--border-strong); }
+
+  /* ---------- DESTAQUES ---------- */
+  .featured-scroll {
+    display: flex; gap: 14px; overflow-x: auto; padding: 4px 2px 14px;
+    scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch;
+  }
+  .featured-scroll::-webkit-scrollbar { height: 6px; }
+  .fcard {
+    flex: 0 0 auto; width: 220px; scroll-snap-align: start;
+    padding: 18px; display: flex; flex-direction: column; gap: 10px;
+  }
+  .fcard .ftop { display: flex; align-items: center; gap: 10px; }
+  .fcard .badge {
+    font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+    color: var(--purple-soft); background: rgba(139,92,246,0.14); padding: 3px 9px; border-radius: 100px;
+    align-self: flex-start;
+  }
+  .fcard .fprice { font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif; font-weight: 700; font-size: 1.15rem; color: var(--purple-soft); }
+  .fcard .fprice-from { font-size: 0.72rem; color: var(--text-mute); font-weight: 500; }
+
+  /* ---------- CATALOG CONTROLS ---------- */
+  .catalog-controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
+  .search-box { position: relative; }
+  .search-box input {
+    width: 100%; padding: 13px 16px 13px 42px; border-radius: 100px;
+    background: rgba(0,0,0,0.25); border: 1px solid var(--border-strong); color: var(--text);
+    font-size: 0.94rem;
+  }
+  .search-box input:focus { outline: 2px solid var(--purple); outline-offset: 1px; }
+  .search-box .search-icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); opacity: 0.6; pointer-events: none; }
+  .chip-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .chip {
+    padding: 9px 16px; border-radius: 100px; font-size: 0.84rem; font-weight: 600;
+    background: var(--surface); border: 1px solid var(--border); color: var(--text-dim);
+  }
+  .chip[aria-pressed="true"] { background: linear-gradient(135deg, var(--purple), #6f4de6); color: #fff; border-color: transparent; }
+  .coupon-box { display: flex; gap: 8px; flex-wrap: wrap; }
+  .coupon-box input {
+    flex: 1; min-width: 180px; padding: 12px 14px; border-radius: 100px;
+    background: rgba(0,0,0,0.25); border: 1px solid var(--border-strong); color: var(--text);
+    font-size: 0.9rem; text-transform: uppercase;
+  }
+  .coupon-box input:focus { outline: 2px solid var(--purple); outline-offset: 1px; }
+  .price-orig { font-size: 0.82rem; color: var(--text-mute); text-decoration: line-through; margin-right: 8px; font-weight: 500; }
+  .tier-rows { display: flex; flex-direction: column; gap: 10px; margin-bottom: 4px; }
+  .tier-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 12px; border-radius: var(--radius-sm); background: rgba(255,255,255,0.035); border: 1px solid var(--border); }
+  .tier-row-info { display: flex; flex-direction: column; gap: 2px; }
+  .tier-row-label { font-size: 0.84rem; color: var(--text-dim); font-weight: 600; }
+  .tier-row-price { font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif; font-weight: 700; font-size: 1rem; color: var(--purple-soft); }
+  .empty-state { text-align: center; padding: 40px 20px; color: var(--text-dim); font-size: 0.94rem; display: none; }
+  .empty-state.show { display: block; }
+
+  /* ---------- PRODUCT GRID ---------- */
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; }
+  .card-top { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .card-icon {
+    width: 42px; height: 42px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.25rem; background: rgba(255,255,255,0.06); flex-shrink: 0;
+  }
+  .card-top h3 { margin: 0; font-size: 1.06rem; }
+  .cat-tag { font-size: 0.7rem; color: var(--text-mute); margin-top: 2px; }
+  .product-card { padding: 20px; display: flex; flex-direction: column; }
+  .plan-select {
+    width: 100%; padding: 11px 12px; border-radius: var(--radius-sm);
+    background: rgba(0,0,0,0.25); border: 1px solid var(--border-strong); color: var(--text);
+    font-size: 0.88rem; margin-bottom: 10px;
+  }
+  .price-line { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+  .price-line .label { font-size: 0.82rem; color: var(--text-dim); }
+  .price-line .val { font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif; font-weight: 700; font-size: 1.2rem; color: var(--purple-soft); }
+  .card-note { font-size: 0.76rem; color: var(--text-mute); margin-top: 10px; }
+
+  /* ---------- INFO STRIP ---------- */
+  .info-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 14px; margin-top: 34px; }
+  .info-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 16px 18px; font-size: 0.86rem; color: var(--text-dim); }
+  .info-box b { color: var(--text); display: block; margin-bottom: 4px; font-size: 0.92rem; }
+
+  /* ---------- COMO FUNCIONA ---------- */
+  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 16px; }
+  .benefits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px,1fr)); gap: 12px; }
+  .benefit-pill { background: var(--surface); border: 1px solid var(--border); border-radius: 100px; padding: 14px 18px; text-align: center; font-weight: 600; font-size: 0.86rem; color: var(--text-dim); }
+  .cat-cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px,1fr)); gap: 14px; }
+  .cat-card { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 22px 16px; text-align: center; color: var(--text); font-family: inherit; }
+  .cat-card:hover { border-color: var(--border-strong); }
+  .cat-card-icon { font-size: 1.8rem; }
+  .cat-card-label { font-weight: 700; font-size: 0.94rem; }
+  .step-card { padding: 20px; }
+  .step-num {
+    width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, var(--purple), var(--blue)); color: #fff; font-weight: 700; font-size: 0.9rem;
+    margin-bottom: 12px; font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  }
+  .step-card h3 { margin: 0 0 6px; font-size: 0.98rem; }
+  .step-card p { margin: 0; font-size: 0.86rem; color: var(--text-dim); }
+
+  /* ---------- FAQ ---------- */
+  .faq-list { display: flex; flex-direction: column; gap: 10px; max-width: 720px; margin: 0 auto; }
+  .faq-item { border-radius: var(--radius-md); overflow: hidden; }
+  .faq-item summary {
+    padding: 16px 18px; font-weight: 600; font-size: 0.94rem; list-style: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "＋"; color: var(--purple-soft); font-size: 1.1rem; flex-shrink: 0; transition: transform .2s ease; }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { margin: 0; padding: 0 18px 16px; font-size: 0.88rem; color: var(--text-dim); }
+  .faq-item summary:focus-visible { outline: 2px solid var(--blue); outline-offset: -2px; }
+
+  /* ---------- CONTACT ---------- */
+  .contact-buttons { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; max-width: 560px; margin: 0 auto 20px; }
+  .contact-card { max-width: 560px; margin: 0 auto; padding: 28px; }
+  .field { margin-bottom: 16px; }
+  .field label { display: block; font-size: 0.84rem; color: var(--text-dim); margin-bottom: 7px; font-weight: 600; }
+  .field input, .field select, .field textarea {
+    width: 100%; padding: 13px 14px; border-radius: var(--radius-sm);
+    background: rgba(0,0,0,0.25); border: 1px solid var(--border-strong);
+    color: var(--text); font-size: 0.94rem;
+  }
+  .field textarea { resize: vertical; min-height: 90px; }
+  .field input:focus, .field select:focus, .field textarea:focus { outline: 2px solid var(--purple); outline-offset: 1px; }
+  .form-note { font-size: 0.78rem; color: var(--text-mute); margin-top: 14px; line-height: 1.5; }
+  .form-status { font-size: 0.85rem; margin-top: 12px; padding: 10px 12px; border-radius: var(--radius-sm); display: none; }
+  .form-status.show { display: block; }
+  .form-status.ok { background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.3); color: #9be8cd; }
+  .form-status.err { background: rgba(251,113,133,0.1); border: 1px solid rgba(251,113,133,0.3); color: #ffb3bf; }
+
+  /* ---------- FOOTER ---------- */
+  footer { border-top: 1px solid var(--border); padding: 34px 0 calc(30px + env(safe-area-inset-bottom,0px)); }
+  .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap: 24px; margin-bottom: 24px; }
+  .footer-col h4 { font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-mute); margin: 0 0 12px; }
+  .footer-col a, .footer-col button { display: block; background: none; border: none; padding: 6px 0; text-align: left; color: var(--text-dim); font-size: 0.88rem; text-decoration: none; }
+  .footer-col a:hover, .footer-col button:hover { color: var(--text); }
+  .footer-bottom { border-top: 1px solid var(--border); padding-top: 18px; text-align: center; }
+  footer p.legal { color: var(--text-mute); font-size: 0.78rem; margin: 4px 0; }
+
+  /* ---------- FLOATING ---------- */
+  .fab-stack { position: fixed; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom,0px)); z-index: 60; display: flex; flex-direction: column; gap: 12px; align-items: flex-end; }
+  .fab {
+    width: 58px; height: 58px; border-radius: 50%; border: none;
+    display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  }
+  .fab-chat { background: linear-gradient(135deg, var(--purple), var(--blue)); color: #fff; }
+  .fab-wpp { background: linear-gradient(135deg, #25d366, #1fb356); color: #06210f; }
+
+  /* ---------- CHAT ---------- */
+  .chat-overlay {
+    position: fixed; inset: 0; background: rgba(4,2,12,0.6); backdrop-filter: blur(3px);
+    z-index: 70; display: none; align-items: flex-end; justify-content: flex-end;
+  }
+  .chat-overlay.show { display: flex; }
+  .chat-panel {
+    width: 100%; max-width: 400px; height: min(640px, 100dvh);
+    background: linear-gradient(180deg, var(--bg-2), var(--bg-1));
+    border: 1px solid var(--border-strong); border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    display: flex; flex-direction: column; overflow: hidden;
+    box-shadow: -10px 0 40px rgba(0,0,0,0.5);
+  }
+  @media (min-width: 460px) {
+    .chat-overlay { padding: 20px; }
+    .chat-panel { border-radius: var(--radius-lg); height: min(600px, 90dvh); }
+  }
+  .chat-head { display: flex; align-items: center; justify-content: space-between; padding: 16px 18px; border-bottom: 1px solid var(--border); padding-top: calc(16px + env(safe-area-inset-top,0px)); }
+  .chat-head-info { display: flex; align-items: center; gap: 10px; }
+  .chat-close { background: var(--surface); border: 1px solid var(--border); color: var(--text); width: 32px; height: 32px; border-radius: 50%; }
+  .chat-body { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+  .msg { max-width: 84%; padding: 11px 14px; border-radius: 16px; font-size: 0.88rem; line-height: 1.45; white-space: pre-line; }
+  .msg.bot { background: var(--surface-2); border: 1px solid var(--border); align-self: flex-start; border-bottom-left-radius: 4px; }
+  .msg.user { background: linear-gradient(135deg, var(--purple), #6f4de6); color: #fff; align-self: flex-end; border-bottom-right-radius: 4px; }
+  .chat-options { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
+  .chat-opt-btn { text-align: left; padding: 11px 14px; border-radius: var(--radius-sm); background: var(--surface); border: 1px solid var(--border-strong); color: var(--text); font-size: 0.87rem; }
+  .chat-opt-btn:hover { background: var(--surface-2); }
+  .chat-foot { padding: 12px 16px calc(12px + env(safe-area-inset-bottom,0px)); border-top: 1px solid var(--border); font-size: 0.74rem; color: var(--text-mute); text-align: center; }
+
+  /* ---------- ADMIN ---------- */
+  .modal-overlay { position: fixed; inset: 0; background: rgba(4,2,12,0.72); backdrop-filter: blur(4px); z-index: 80; display: none; align-items: center; justify-content: center; padding: 16px; }
+  .modal-overlay.show { display: flex; }
+  .modal-box { width: 100%; max-width: 640px; max-height: 88dvh; overflow-y: auto; background: var(--bg-2); border: 1px solid var(--border-strong); border-radius: var(--radius-lg); padding: 24px; position: relative; }
+  .modal-box h3 { margin-top: 0; }
+  .modal-close { position: absolute; top: 16px; right: 16px; background: var(--surface); border: 1px solid var(--border); color: var(--text); width: 32px; height: 32px; border-radius: 50%; }
+  .admin-warning { background: rgba(251,191,36,0.08); border: 1px solid rgba(251,191,36,0.3); color: #fde3a7; font-size: 0.8rem; padding: 12px 14px; border-radius: var(--radius-sm); margin-bottom: 16px; line-height: 1.5; }
+  .admin-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 18px; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
+  .admin-tab { padding: 8px 14px; border-radius: 100px; font-size: 0.8rem; font-weight: 600; background: var(--surface); border: 1px solid var(--border); color: var(--text-dim); }
+  .admin-tab[aria-selected="true"] { background: linear-gradient(135deg, var(--purple), #6f4de6); color: #fff; border-color: transparent; }
+  .admin-panel { display: none; }
+  .admin-panel.show { display: block; }
+  .admin-grid { display: grid; gap: 14px; }
+  .admin-row { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; }
+  .admin-row span.lbl { width: 150px; flex-shrink: 0; color: var(--text-dim); }
+  .admin-row input, .admin-row select { flex: 1; padding: 9px 10px; border-radius: 8px; background: rgba(0,0,0,.25); border: 1px solid var(--border-strong); color: var(--text); font-size: 0.85rem; }
+  .admin-actions { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
+  .btn-danger-outline { background: transparent; border: 1px solid rgba(251,113,133,0.4); color: #ffb3bf; }
+  .notice-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .notice-row input[type=text] { flex: 1; }
+  .notice-row select { width: 100px; }
+  .product-row { border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px; margin-bottom: 10px; }
+  .product-row-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 0.86rem; font-weight: 600; }
+  .icon-btn { width: 30px; height: 30px; border-radius: 8px; background: var(--surface); border: 1px solid var(--border); color: var(--text-dim); font-size: 0.85rem; }
+
+  .order-summary { display: flex; flex-direction: column; gap: 6px; margin-bottom: 6px; }
+  .order-total { display: flex; justify-content: space-between; align-items: center; font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif; font-weight: 700; font-size: 1.25rem; color: var(--purple-soft); padding: 14px 0; border-top: 1px solid var(--border); margin: 6px 0 4px; }
+  .status-track { display: flex; flex-direction: column; gap: 9px; margin: 16px 0; }
+  .status-step { display: flex; align-items: center; gap: 10px; padding: 11px 13px; border-radius: 10px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); font-size: 0.88rem; color: var(--text-mute); opacity: 0.5; }
+  .status-step.active { opacity: 1; background: rgba(139,92,246,0.1); border-color: var(--border-strong); color: var(--text); font-weight: 600; }
+  .dot-status { font-size: 1.05rem; }
+
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 10px; }
+  @media (prefers-reduced-motion: reduce) { * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; } }
+
+  /* ===================== PAINEL DE PEDIDOS (/admin) =====================
+     Escopado em #adminRoot para nunca vazar/colidir com o estilo da loja. */
+  #adminRoot { display: none; }
+  #adminRoot .adm-wrap { max-width: 900px; margin: 0 auto; padding: 20px 16px 60px; }
+  #adminRoot h1 { font-size: 1.3rem; margin: 0 0 4px; }
+  #adminRoot h2 { font-size: 1.05rem; margin: 0 0 12px; }
+  #adminRoot .muted { color: var(--text-dim); font-size: 0.88rem; }
+  #adminRoot .adm-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 16px; margin-bottom: 14px; }
+  #adminRoot input, #adminRoot select, #adminRoot textarea {
+    width: 100%; font-family: inherit; font-size: 0.95rem; color: var(--text);
+    background: rgba(255,255,255,0.06); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 11px 13px;
+  }
+  #adminRoot textarea { resize: vertical; min-height: 70px; }
+  #adminRoot label { display: block; font-size: 0.82rem; color: var(--text-dim); margin-bottom: 5px; }
+  #adminRoot .field { margin-bottom: 12px; }
+  #adminRoot #loginScreen { max-width: 380px; margin: 18vh auto 0; }
+  #adminRoot #appScreen { display: none; }
+  #adminRoot .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; gap: 10px; flex-wrap: wrap; }
+  #adminRoot .row { display: flex; gap: 10px; flex-wrap: wrap; }
+  #adminRoot .row > * { flex: 1; min-width: 130px; }
+  #adminRoot .stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 16px; }
+  @media (min-width: 560px) { #adminRoot .stats { grid-template-columns: repeat(5, 1fr); } }
+  #adminRoot .stat { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px; text-align: center; }
+  #adminRoot .stat .n { font-size: 1.35rem; font-weight: 700; }
+  #adminRoot .stat .lbl { font-size: 0.72rem; color: var(--text-dim); }
+  #adminRoot .order-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 14px; margin-bottom: 10px; }
+  #adminRoot .order-card .top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+  #adminRoot .order-id { font-family: ui-monospace, monospace; font-size: 0.72rem; color: var(--text-mute); }
+  #adminRoot .order-title { font-weight: 700; margin: 2px 0; }
+  #adminRoot .badge { display: inline-block; padding: 3px 9px; border-radius: 999px; font-size: 0.72rem; font-weight: 700; white-space: nowrap; }
+  #adminRoot .badge-pending { background: rgba(251,191,36,0.15); color: var(--warn); }
+  #adminRoot .badge-review { background: rgba(63,196,255,0.15); color: var(--blue); }
+  #adminRoot .badge-paid { background: rgba(52,211,153,0.15); color: var(--success); }
+  #adminRoot .badge-completed { background: rgba(139,92,246,0.18); color: var(--purple-soft); }
+  #adminRoot .badge-cancelled { background: rgba(251,113,133,0.15); color: var(--danger); }
+  #adminRoot .order-meta { font-size: 0.82rem; color: var(--text-dim); margin-top: 6px; }
+  #adminRoot .status-msg { font-size: 0.85rem; margin-top: 10px; min-height: 1.2em; }
+  #adminRoot .status-msg.err { color: var(--danger); }
+  #adminRoot .status-msg.ok { color: var(--success); }
+  #adminRoot .history-item { display: flex; gap: 8px; font-size: 0.82rem; color: var(--text-dim); padding: 6px 0; border-bottom: 1px dashed var(--border); }
+  #adminRoot .history-item:last-child { border-bottom: none; }
+
+</style>
+</head>
+<body>
+<div id="siteRoot">
+<a href="#main" class="skip-link">Pular para o conteúdo</a>
+
+<!-- AVISOS -->
+<div id="noticesWrap"></div>
+
+<!-- NAV -->
+<nav class="nav" aria-label="Navegação principal">
+  <div class="wrap nav-inner">
+    <div class="brand">
+      <span class="brand-mark" id="brandMark" aria-hidden="true">👑</span>
+      <span id="brandName">LD STORE</span>
+    </div>
+    <div class="nav-links">
+      <a href="#inicio">Início</a>
+      <a href="#servicos">Serviços</a>
+      <a href="#como-funciona">Como funciona</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contato">Contato</a>
+    </div>
+    <div class="nav-right">
+      <div class="status-pill" id="statusPillNav">
+        <span class="dot off" id="dotNav"></span>
+        <span id="statusTextNav">verificando…</span>
+      </div>
+      <button class="hamburger" id="hamburgerBtn" aria-expanded="false" aria-controls="mobileMenu" aria-label="Abrir menu">☰</button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#inicio">Início</a>
+    <a href="#servicos">Serviços</a>
+    <a href="#como-funciona">Como funciona</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contato">Contato</a>
+  </div>
+</nav>
+
+<main id="main">
+
+<!-- HERO -->
+<header class="hero wrap" id="inicio">
+  <div class="hero-eyebrow">👑 LD STORE</div>
+  <h1 id="heroSlogan">Seu entretenimento, do seu jeito.</h1>
+  <p class="sub" id="heroSub">Serviços digitais de forma simples, rápida e prática.</p>
+  <div class="hero-actions">
+    <a href="#servicos" class="btn btn-primary">🛍️ VER SERVIÇOS</a>
+    <a href="#" class="btn btn-wpp" id="heroWppBtn">💬 FALAR NO WHATSAPP</a>
+  </div>
+  <div class="closed-banner" id="closedBanner" role="status">
+    <div id="closedMainMsg"></div>
+    <div style="margin-top:8px">Nosso atendimento funciona:<br><span id="hoursText"></span></div>
+    <div style="margin-top:8px" class="next-open" id="nextOpenText"></div>
+  </div>
+</header>
+
+<!-- BENEFÍCIOS -->
+<section class="wrap" style="padding-top:0; padding-bottom:36px;" aria-labelledby="beneficiosTitle">
+  <h2 id="beneficiosTitle" class="visually-hidden">Benefícios</h2>
+  <div class="benefits-grid">
+    <div class="benefit-pill">🔐 Segurança e confiança</div>
+    <div class="benefit-pill">⚡ Atendimento rápido</div>
+    <div class="benefit-pill">💬 Atendimento personalizado</div>
+    <div class="benefit-pill">💰 Preços acessíveis</div>
+  </div>
+</section>
+
+<!-- CATEGORIAS -->
+<section class="wrap" aria-labelledby="categoriasTitle">
+  <div class="sec-head">
+    <h2 id="categoriasTitle">Categorias</h2>
+    <p>Encontre rápido o que você procura</p>
+  </div>
+  <div class="cat-cards-grid" id="categoryCardsGrid" role="list"></div>
+</section>
+
+<!-- DESTAQUES -->
+<section class="wrap" aria-labelledby="destaquesTitle">
+  <div class="sec-head">
+    <h2 id="destaquesTitle">⭐ Produtos em destaque</h2>
+    <p>Os mais procurados da loja</p>
+  </div>
+  <div class="featured-scroll" id="featuredScroll" role="list"></div>
+</section>
+
+<!-- CATALOGO -->
+<section id="servicos" class="wrap" aria-labelledby="catalogoTitle">
+  <div class="sec-head">
+    <h2 id="catalogoTitle">Catálogo completo</h2>
+    <p>Escolha o serviço, o plano e clique em comprar</p>
+  </div>
+
+  <div class="catalog-controls">
+    <div class="search-box">
+      <span class="search-icon" aria-hidden="true">🔎</span>
+      <label for="searchInput" class="visually-hidden">Pesquisar produto</label>
+      <input type="search" id="searchInput" placeholder="Pesquisar um serviço (ex: Netflix, Canva...)">
+    </div>
+    <div class="chip-row" id="categoryChips" role="group" aria-label="Filtrar por categoria"></div>
+    <div class="coupon-box">
+      <label for="couponInput" class="visually-hidden">Cupom de desconto</label>
+      <input type="text" id="couponInput" placeholder="🏷️ Tem um cupom? Digite aqui" autocomplete="off">
+      <button type="button" class="btn btn-ghost btn-sm" id="applyCouponBtn">Aplicar cupom</button>
+      <button type="button" class="btn btn-ghost btn-sm" id="removeCouponBtn" style="display:none">Remover cupom</button>
+    </div>
+    <p class="form-status" id="couponStatus" role="status"></p>
+  </div>
+
+  <div class="grid" id="catalogGrid" role="list"></div>
+  <p class="empty-state" id="emptyState">Nenhum serviço encontrado com esse filtro. Tente outra palavra-chave ou categoria.</p>
+
+  <div class="info-strip">
+    <div class="info-box"><b>💳 Pagamento</b>Combinado diretamente com a loja no atendimento (Pix, na maioria dos casos).</div>
+    <div class="info-box"><b>📦 Entrega</b>Feita manualmente após confirmação do pagamento, dentro do horário de atendimento.</div>
+    <div class="info-box"><b>🔒 Segurança</b>Nunca pedimos senha de banco, cartão ou código de autenticação por aqui.</div>
+  </div>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section id="como-funciona" class="wrap" aria-labelledby="comoTitle">
+  <div class="sec-head">
+    <h2 id="comoTitle">Como funciona</h2>
+    <p>Do primeiro clique até o seu serviço ativo</p>
+  </div>
+  <div class="steps" id="stepsGrid"></div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="wrap" aria-labelledby="faqTitle">
+  <div class="sec-head">
+    <h2 id="faqTitle">Perguntas frequentes</h2>
+    <p>Ainda com dúvidas? Fale com a gente pelo WhatsApp</p>
+  </div>
+  <div class="faq-list" id="faqList"></div>
+</section>
+
+<!-- CONTATO -->
+<section id="contato" class="wrap" aria-labelledby="contatoTitle">
+  <div class="sec-head">
+    <h2 id="contatoTitle">Contato</h2>
+    <p>Fale com a gente ou deixe sua mensagem</p>
+  </div>
+  <div class="contact-buttons">
+    <a href="#" class="btn btn-wpp" id="contactWppBtn">💬 WhatsApp</a>
+    <a href="#" class="btn btn-ghost" id="contactInstaBtn" style="display:none">📸 Instagram</a>
+  </div>
+  <form class="card contact-card" id="contactForm" novalidate>
+    <div class="field">
+      <label for="fName">Nome</label>
+      <input type="text" id="fName" placeholder="Como podemos te chamar?" required autocomplete="name">
+    </div>
+    <div class="field">
+      <label for="fService">Serviço de interesse</label>
+      <select id="fService"></select>
+    </div>
+    <div class="field">
+      <label for="fMsg">Mensagem</label>
+      <textarea id="fMsg" placeholder="Conte o que você precisa..." required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary btn-block">Enviar mensagem</button>
+    <div class="form-status" id="formStatus" role="alert"></div>
+    <p class="form-note">
+      Este site ainda não possui um servidor próprio para receber mensagens automaticamente. Ao enviar, vamos abrir o WhatsApp com sua mensagem pronta para você confirmar o envio — nada é despachado sem a sua ação.
+      Para receber mensagens diretamente por e-mail ou painel, é necessário conectar um serviço de formulário (Formspree, Google Forms) ou um backend próprio.
+    </p>
+  </form>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>LD STORE</h4>
+        <a href="#inicio">Início</a>
+        <a href="#servicos">Serviços</a>
+        <a href="#como-funciona">Como funciona</a>
+      </div>
+      <div class="footer-col">
+        <h4>Ajuda</h4>
+        <a href="#faq">FAQ</a>
+        <a href="#contato">Contato</a>
+        <a href="#" id="footerWppBtn">WhatsApp</a>
+        <a href="#" id="footerInstaBtn" style="display:none">Instagram</a>
+      </div>
+      <div class="footer-col">
+        <h4>Pedido</h4>
+        <button type="button" id="trackOrderBtn">Acompanhar meu pedido</button>
+        <button type="button" id="openAdminLink">Área administrativa</button>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="legal" id="footerBrand">LD STORE © 2026</p>
+      <p class="legal">Loja independente de revenda de assinaturas. Não somos afiliados, representantes oficiais ou parceiros das plataformas mencionadas.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- FLOATING -->
+<div class="fab-stack">
+  <button class="fab fab-wpp" id="fabWpp" title="Falar pelo WhatsApp" aria-label="Falar pelo WhatsApp">💬</button>
+  <button class="fab fab-chat" id="fabChat" title="Atendimento" aria-label="Abrir atendimento automático">🤖</button>
+</div>
+
+<!-- CHAT -->
+<div class="chat-overlay" id="chatOverlay" role="dialog" aria-modal="true" aria-label="Atendimento automático">
+  <div class="chat-panel">
+    <div class="chat-head">
+      <div class="chat-head-info">
+        <span class="brand-mark" style="width:36px;height:36px" aria-hidden="true">🤖</span>
+        <div>
+          <div style="font-weight:700; font-size:0.94rem" id="chatBrandName">LD STORE</div>
+          <div style="font-size:0.76rem; color:var(--text-dim)" id="chatStatusLine">verificando status…</div>
+        </div>
+      </div>
+      <button class="chat-close" id="closeChat" aria-label="Fechar atendimento">✕</button>
+    </div>
+    <div class="chat-body" id="chatBody"></div>
+    <div class="chat-foot">Atendimento automático — não é uma pessoa real respondendo.</div>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div class="modal-overlay" id="adminOverlay" role="dialog" aria-modal="true" aria-label="Área administrativa">
+  <div class="modal-box" id="adminBox"></div>
+</div>
+
+<!-- ASSISTENTE DE PEDIDO -->
+<div class="modal-overlay" id="orderOverlay" role="dialog" aria-modal="true" aria-label="Assistente de pedido">
+  <div class="modal-box" id="orderBox"></div>
+</div>
+
+</div><!-- /siteRoot -->
+
+
+<!-- ===================== PAINEL DE PEDIDOS (/admin) ===================== -->
+<div id="adminRoot" style="display:none">
+<div class="adm-wrap">
+
+  <div id="loginScreen">
+    <div class="adm-card">
+      <h1>🔒 Painel de Pedidos</h1>
+      <p class="muted">Acesso restrito — LD STORE</p>
+      <div class="field" style="margin-top:16px">
+        <label for="loginPass">Senha de administrador</label>
+        <input id="loginPass" type="password" autocomplete="current-password" placeholder="••••••••">
+      </div>
+      <button class="btn btn-primary" id="loginBtn" type="button">Entrar</button>
+      <p class="status-msg" id="loginMsg"></p>
+    </div>
+  </div>
+
+  <div id="appScreen">
+    <div class="topbar">
+      <div>
+        <h1>📋 Painel de Pedidos</h1>
+        <p class="muted">LD STORE — gerenciamento manual de pagamentos</p>
+      </div>
+      <button class="btn btn-ghost btn-sm" id="logoutBtn" type="button">Sair</button>
+    </div>
+
+    <div class="stats" id="statsRow"></div>
+
+    <div class="adm-card">
+      <div class="row">
+        <input id="admSearchInput" placeholder="Buscar por nome, telefone ou nº do pedido">
+        <select id="statusFilter">
+          <option value="">Todos os status</option>
+          <option value="pending">🟡 Pendente</option>
+          <option value="review">🔵 Em análise</option>
+          <option value="paid">🟢 Pago</option>
+          <option value="completed">🟣 Concluído</option>
+          <option value="cancelled">🔴 Cancelado</option>
+        </select>
+      </div>
+      <div class="row" style="margin-top:10px">
+        <div class="field" style="margin:0"><label for="dateFrom">De</label><input id="dateFrom" type="date"></div>
+        <div class="field" style="margin:0"><label for="dateTo">Até</label><input id="dateTo" type="date"></div>
+      </div>
+      <button class="btn btn-ghost btn-sm" id="clearFiltersBtn" type="button" style="margin-top:10px; width:auto">Limpar filtros</button>
+    </div>
+
+    <div id="ordersList"></div>
+    <p class="muted" id="emptyMsg" style="display:none; text-align:center; padding:20px 0">Nenhum pedido encontrado.</p>
+  </div>
+</div>
+
+<div class="modal-overlay" id="admDetailOverlay" role="dialog" aria-modal="true" aria-label="Detalhes do pedido">
+  <div class="modal-box" id="detailBox"></div>
+</div>
+
+</div>
+<!-- =================== FIM DO PAINEL DE PEDIDOS =================== -->
+
+<script>
+'use strict';
+
+/* =========================================================
+   1. CONFIGURAÇÃO CENTRAL — tudo que a loja pode mudar vive aqui
+   ========================================================= */
+const DEFAULT_CONFIG = {
+  storeName: "LD STORE",
+  logoEmoji: "👑",
+  slogan: "Seu entretenimento, do seu jeito.",
+  tagline: "Serviços digitais de forma simples, rápida e prática.",
+  whatsappNumber: "5579996768172", // +55 79 99676-8172
+  instagramUrl: "", // deixe em branco até a loja informar o link real do Instagram
+  adminPassword: "admin123",
+
+  // minutos desde 00:00. getDay(): 0=domingo,1=seg,2=ter,3=qua,4=qui,5=sex,6=sáb
+  hours: {
+    0: [14*60, 20*60],
+    1: [12*60, 22*60],
+    2: [12*60, 22*60],
+    3: [12*60, 22*60],
+    4: [12*60, 22*60],
+    5: [12*60, 22*60],
+    6: [12*60, 22*60],
+  },
+
+  categories: [
+    { id: "musica", label: "Música", icon: "🎵" },
+    { id: "streaming", label: "Streaming", icon: "🎬" },
+    { id: "produtividade", label: "IA / Produtividade", icon: "🤖" },
+  ],
+
+  notices: [
+    { id: "n1", text: "🔥 Promoção: assine o Spotify anual e economize.", type: "promo", active: true },
+  ],
+
+  coupons: [
+    // exemplo: { id: "cp1", code: "BEMVINDO10", percent: 10, active: true }
+  ],
+
+  messages: {
+    greetingOnline: "Olá! Vim pelo site da {store} e gostaria de saber mais sobre os serviços.",
+    greetingOffline: "Olá! Vim pelo site da {store}. Sei que o atendimento está encerrado no momento, mas gostaria de deixar minha mensagem sobre {service}.",
+    existingCustomer: "Olá! Já sou cliente da {store} e preciso de suporte.",
+    orderFinal: "Olá! Fiz um pedido na {store}.\n\n🆔 Pedido: {id}\n📦 Produto: {service}\n📋 Plano: {plan}\n💰 Valor: {price}\n💳 Pagamento: Pix\n\nJá realizei o pagamento e aguardo a confirmação.",
+  },
+
+  services: [
+    { id: "spotify", category: "musica", icon: "🎧", name: "Spotify", featured: true, active: true, type: "tiers",
+      tiers: [ { label: "Mensal", price: 9.90 }, { label: "Trimestral", price: 24.90 }, { label: "Anual", price: 45.00 } ] },
+    { id: "netflix", category: "streaming", icon: "🎬", name: "Netflix", featured: true, active: true, type: "tiers",
+      tiers: [ { label: "Premium 4K Privado", price: 24.90 }, { label: "Premium 4K Compartilhado", price: 15.90 } ] },
+    { id: "crunchyroll", category: "streaming", icon: "🍥", name: "Crunchyroll", featured: false, active: true, type: "tiers",
+      tiers: [ { label: "Compartilhado", price: 15.00 }, { label: "Tela + PIN", price: 25.00 } ] },
+    { id: "hbomax", category: "streaming", icon: "🎭", name: "HBO Max", featured: false, active: true, type: "single", price: 15.00 },
+    { id: "primevideo", category: "streaming", icon: "📦", name: "Prime Video", featured: false, active: true, type: "single", price: 15.00 },
+    { id: "paramount", category: "streaming", icon: "⛰️", name: "Paramount+", featured: false, active: true, type: "single", price: 15.00 },
+    { id: "disney", category: "streaming", icon: "🏰", name: "Disney+", featured: false, active: true, type: "single", price: 15.00 },
+    { id: "globoplay", category: "streaming", icon: "📺", name: "Globoplay", featured: false, active: true, type: "single", price: 13.00 },
+    { id: "youtube", category: "streaming", icon: "▶️", name: "YouTube", featured: false, active: true, type: "single", price: 15.00 },
+    { id: "chatgpt", category: "produtividade", icon: "🧠", name: "ChatGPT", featured: true, active: true, type: "tiers",
+      tiers: [ { label: "Go", price: 20.00 }, { label: "Plus", price: 48.00 } ] },
+    { id: "canva", category: "produtividade", icon: "🎨", name: "Canva Pro", featured: true, active: true, type: "single", price: 15.00 },
+  ],
+
+  faq: [
+    { q: "Como faço uma compra?", a: "Escolha o serviço no catálogo, clique em \"Comprar agora\" no plano desejado e siga os passos até finalizar o pedido pelo WhatsApp." },
+    { q: "Como pago via Pix?", a: "No resumo do pedido, clique em \"Pagar via Pix\", confira o aviso com o valor exato e clique em \"Entendi, continuar\". Copie a chave Pix mostrada e pague exatamente o valor informado." },
+    { q: "Como envio meu pedido?", a: "Depois de pagar, clique em \"Enviar comprovante pelo WhatsApp\" para nos avisar com os detalhes do pedido e anexar o comprovante." },
+    { q: "Quanto tempo demora o atendimento?", a: "Respondemos dentro do nosso horário de atendimento, indicado no topo do site." },
+    { q: "Como entro em contato com o suporte?", a: "Pelo botão de WhatsApp em qualquer parte do site, ou pelo atendimento automático no ícone flutuante." },
+    { q: "O que acontece depois do pagamento?", a: "A LD STORE confirma manualmente o recebimento do Pix e atualiza o status do seu pedido antes da entrega." },
+  ],
+};
+
+const WEEKDAY_LABEL = ["Domingo","Segunda","Terça","Quarta","Quinta","Sexta","Sábado"];
+const STORAGE_KEY = "ldstore_config_v3";
+const NOTICE_DISMISS_KEY = "ldstore_dismissed_notices";
+const LAST_ORDER_KEY = "ldstore_last_order";
+const CHECKOUT_KEY = "ldstore_checkout_contact"; // lembra nome/telefone só neste navegador
+
+/* =========================================================
+   1b. API DO BACKEND (server.js)
+   ========================================================= */
+const API_BASE = "/api";
+let PUBLIC_CFG = { pixKey: "", pixKeyType: "", pixHolderName: "", whatsappNumber: "" };
+
+async function apiGet(p) {
+  const res = await fetch(API_BASE + p, { credentials: "same-origin" });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.error || "Falha ao consultar o servidor.");
+  return data;
+}
+async function apiPost(p, body) {
+  const res = await fetch(API_BASE + p, {
+    method: "POST", credentials: "same-origin",
+    headers: { "Content-Type": "application/json" }, body: JSON.stringify(body),
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.error || "Falha ao consultar o servidor.");
+  return data;
+}
+function saveCheckoutContact(c) { try { localStorage.setItem(CHECKOUT_KEY, JSON.stringify(c)); } catch (e) {} }
+function loadCheckoutContact() { try { return JSON.parse(localStorage.getItem(CHECKOUT_KEY) || "null") || {}; } catch (e) { return {}; } }
+
+/* =========================================================
+   2. CARREGAR / SALVAR CONFIG
+   ========================================================= */
+function loadConfig() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return structuredClone(DEFAULT_CONFIG);
+    const saved = JSON.parse(raw);
+    return {
+      ...structuredClone(DEFAULT_CONFIG),
+      ...saved,
+      hours: saved.hours || DEFAULT_CONFIG.hours,
+      services: Array.isArray(saved.services) ? saved.services : DEFAULT_CONFIG.services,
+      categories: Array.isArray(saved.categories) ? saved.categories : DEFAULT_CONFIG.categories,
+      notices: Array.isArray(saved.notices) ? saved.notices : DEFAULT_CONFIG.notices,
+      coupons: Array.isArray(saved.coupons) ? saved.coupons : DEFAULT_CONFIG.coupons,
+      faq: Array.isArray(saved.faq) ? saved.faq : DEFAULT_CONFIG.faq,
+      messages: { ...DEFAULT_CONFIG.messages, ...(saved.messages || {}) },
+    };
+  } catch (e) {
+    console.warn("Config salva inválida, usando padrão:", e);
+    return structuredClone(DEFAULT_CONFIG);
+  }
+}
+function saveConfig(cfg) {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(cfg)); return true; }
+  catch (e) { console.error("Erro ao salvar config:", e); return false; }
+}
+let CONFIG = loadConfig();
+
+/* validação simples: nunca deixar produto sem preço válido */
+function validateServices(list) {
+  return list.filter(s => {
+    if (s.type === "single") return typeof s.price === "number" && s.price > 0;
+    if (s.type === "tiers") return Array.isArray(s.tiers) && s.tiers.length && s.tiers.every(t => typeof t.price === "number" && t.price > 0);
+    return false;
+  });
+}
+
+/* =========================================================
+   3. HELPERS
+   ========================================================= */
+function money(v) { return (Number(v) || 0).toLocaleString("pt-BR", { style: "currency", currency: "BRL" }); }
+function minToHHMM(m) { const h = Math.floor(m/60).toString().padStart(2,"0"); const mm = (m%60).toString().padStart(2,"0"); return `${h}:${mm}`; }
+function normalize(str) { return (str||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,""); }
+function fillTemplate(str, vars) {
+  return String(str||"").replace(/\{(\w+)\}/g, (m, key) => (key in vars ? vars[key] : m));
+}
+function categoryLabel(id) {
+  const c = CONFIG.categories.find(c => c.id === id);
+  return c ? c.label : id;
+}
+function categoryIcon(id) {
+  const c = CONFIG.categories.find(c => c.id === id);
+  return c ? (c.icon || "") : "";
+}
+
+/* =========================================================
+   4. STATUS DE ATENDIMENTO
+   ========================================================= */
+function getStatus(now = new Date()) {
+  const day = now.getDay();
+  const minutesNow = now.getHours()*60 + now.getMinutes();
+  const todayHours = CONFIG.hours[day];
+  if (todayHours && minutesNow >= todayHours[0] && minutesNow < todayHours[1]) return { open: true };
+  for (let offset = 0; offset <= 7; offset++) {
+    const d = (day + offset) % 7;
+    const range = CONFIG.hours[d];
+    if (!range) continue;
+    if (offset === 0) {
+      if (minutesNow < range[0]) return { open: false, nextDay: d, nextOffset: 0, nextMinutes: range[0] };
+      continue;
+    }
+    return { open: false, nextDay: d, nextOffset: offset, nextMinutes: range[0] };
+  }
+  return { open: false, nextDay: null };
+}
+function describeNextOpen(status) {
+  if (status.nextDay === null || status.nextDay === undefined) return "Horário de abertura não configurado.";
+  if (status.nextOffset === 0) return `Próximo atendimento: hoje às ${minToHHMM(status.nextMinutes)}`;
+  if (status.nextOffset === 1) return `Próximo atendimento: amanhã às ${minToHHMM(status.nextMinutes)}`;
+  return `Próximo atendimento: ${WEEKDAY_LABEL[status.nextDay]} às ${minToHHMM(status.nextMinutes)}`;
+}
+function hoursSummaryText() {
+  const h = CONFIG.hours;
+  const lines = [];
+  const segSex = h[1] && h[5] && h[1][0]===h[5][0] && h[1][1]===h[5][1];
+  if (segSex && h[6] && h[6][0]===h[1][0] && h[6][1]===h[1][1]) {
+    lines.push(`Segunda a sábado: ${minToHHMM(h[1][0])} às ${minToHHMM(h[1][1])}`);
+  } else if (segSex) {
+    lines.push(`Segunda a sexta: ${minToHHMM(h[1][0])} às ${minToHHMM(h[1][1])}`);
+    if (h[6]) lines.push(`Sábado: ${minToHHMM(h[6][0])} às ${minToHHMM(h[6][1])}`);
+  } else {
+    [1,2,3,4,5,6].forEach(d => { if (h[d]) lines.push(`${WEEKDAY_LABEL[d]}: ${minToHHMM(h[d][0])} às ${minToHHMM(h[d][1])}`); });
+  }
+  if (h[0]) lines.push(`Domingo: ${minToHHMM(h[0][0])} às ${minToHHMM(h[0][1])}`);
+  return lines.join("\n");
+}
+
+let currentStatus = { open: false };
+
+function refreshStatus() {
+  currentStatus = getStatus();
+  const dotNav = document.getElementById("dotNav");
+  const textNav = document.getElementById("statusTextNav");
+  const closedBanner = document.getElementById("closedBanner");
+  const chatStatusLine = document.getElementById("chatStatusLine");
+  if (!dotNav) return;
+
+  if (currentStatus.open) {
+    dotNav.className = "dot on";
+    textNav.textContent = `${CONFIG.storeName} — Atendimento online`;
+    closedBanner.classList.remove("show");
+    if (chatStatusLine) chatStatusLine.textContent = "🟢 Online agora";
+  } else {
+    dotNav.className = "dot off";
+    textNav.textContent = `${CONFIG.storeName} — Atendimento encerrado`;
+    closedBanner.classList.add("show");
+    document.getElementById("closedMainMsg").textContent = `A ${CONFIG.storeName} está offline no momento. Você pode consultar nossos serviços e deixar sua mensagem. Responderemos assim que o atendimento estiver disponível.`;
+    document.getElementById("hoursText").textContent = hoursSummaryText();
+    document.getElementById("nextOpenText").textContent = describeNextOpen(currentStatus);
+    if (chatStatusLine) chatStatusLine.textContent = "🔴 Offline — " + describeNextOpen(currentStatus).replace("Próximo atendimento: ", "volta ");
+  }
+}
+
+/* =========================================================
+   5. WHATSAPP
+   ========================================================= */
+function buildWhatsAppLink(message) {
+  const num = String(CONFIG.whatsappNumber || "").replace(/\D/g, "");
+  return `https://wa.me/${num}?text=${encodeURIComponent(message)}`;
+}
+function whatsappGreeting(serviceName) {
+  const vars = { store: CONFIG.storeName, service: serviceName || "meus serviços" };
+  return currentStatus.open
+    ? fillTemplate(CONFIG.messages.greetingOnline, vars)
+    : fillTemplate(CONFIG.messages.greetingOffline, vars);
+}
+function generateOrderId() {
+  return "LD-" + Math.floor(10000 + Math.random() * 90000);
+}
+function openWhatsApp(message) {
+  window.open(buildWhatsAppLink(message), "_blank", "noopener");
+}
+
+/* ---- cupons de desconto ---- */
+let appliedCoupon = null;
+function normalizeCode(s) { return String(s || "").trim().toUpperCase(); }
+function findCoupon(code) {
+  const norm = normalizeCode(code);
+  if (!norm) return null;
+  return (CONFIG.coupons || []).find(c => normalizeCode(c.code) === norm && c.active);
+}
+function discountedPrice(price) {
+  if (appliedCoupon) return Math.max(0, price - (price * appliedCoupon.percent / 100));
+  return price;
+}
+function refreshCouponUI() {
+  const statusEl = document.getElementById("couponStatus");
+  const removeBtn = document.getElementById("removeCouponBtn");
+  if (!statusEl) return;
+  if (appliedCoupon) {
+    statusEl.textContent = `Cupom "${appliedCoupon.code}" aplicado: -${appliedCoupon.percent}% em todos os produtos.`;
+    statusEl.className = "form-status show ok";
+    removeBtn.style.display = "";
+  } else {
+    removeBtn.style.display = "none";
+  }
+}
+
+/* ---- assistente de pedido: detalhes → resumo → pagamento Pix → status ---- */
+const orderOverlay = document.getElementById("orderOverlay");
+const orderBox = document.getElementById("orderBox");
+let currentOrder = null;
+let orderStep = "details";
+
+function categoryDescText(categoryId) {
+  const map = {
+    musica: "Assinatura de música para uso pessoal, conforme o plano escolhido.",
+    streaming: "Assinatura de streaming — pagamento combinado com a loja e entrega manual após confirmação.",
+    produtividade: "Acesso à ferramenta de IA/produtividade conforme o plano contratado.",
+  };
+  return map[categoryId] || "Pagamento combinado com a loja e entrega manual após confirmação.";
+}
+function categoryInfoText(categoryId) {
+  const map = {
+    musica: "Uso conforme as condições do plano selecionado.",
+    streaming: "Acesso da forma combinada com a loja (perfil privado ou compartilhado, quando aplicável ao plano).",
+    produtividade: "Acesso à ferramenta conforme o plano contratado.",
+  };
+  return map[categoryId] || "Acesso conforme o plano contratado.";
+}
+function buildFinalOrderMessage(order, finalPrice) {
+  return fillTemplate(CONFIG.messages.orderFinal, {
+    store: CONFIG.storeName, id: order.id, service: order.serviceName,
+    plan: order.planLabel, price: money(finalPrice),
+  });
+}
+function saveLastOrder(order) {
+  try { localStorage.setItem(LAST_ORDER_KEY, JSON.stringify(order)); } catch (e) { console.warn(e); }
+}
+function loadLastOrder() {
+  try { const raw = localStorage.getItem(LAST_ORDER_KEY); return raw ? JSON.parse(raw) : null; }
+  catch (e) { return null; }
+}
+
+function openProductModal(serviceId, serviceName, category, planLabel, planIndex, originalPrice) {
+  currentOrder = { id: null, serviceId, serviceName, category, planLabel, planIndex, originalPrice, customer: null };
+  orderStep = "details";
+  renderOrderModal();
+  orderOverlay.classList.add("show");
+}
+function closeOrderModal() { orderOverlay.classList.remove("show"); currentOrder = null; stopOrderPolling(); }
+orderOverlay.addEventListener("click", e => { if (e.target === orderOverlay) closeOrderModal(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape" && orderOverlay.classList.contains("show")) closeOrderModal(); });
+
+async function trackLastOrder() {
+  const saved = loadLastOrder();
+  if (!saved || !saved.id) { alert("Nenhum pedido encontrado neste navegador ainda."); return; }
+  currentOrder = { ...saved, customer: saved.customer || null };
+  orderStep = "status";
+  renderOrderModal();
+  orderOverlay.classList.add("show");
+}
+
+function bindOrderClose() {
+  document.getElementById("orderCloseBtn").addEventListener("click", closeOrderModal);
+}
+
+function renderOrderModal() {
+  if (!currentOrder) return;
+  const disc = discountedPrice(currentOrder.originalPrice);
+  const hasDiscount = disc < currentOrder.originalPrice;
+
+  if (orderStep === "details") {
+    const contact = loadCheckoutContact();
+    orderBox.innerHTML = `
+      <button class="modal-close" id="orderCloseBtn" aria-label="Fechar">✕</button>
+      <h3>📦 ${currentOrder.serviceName}</h3>
+      <div class="order-summary">
+        <div class="admin-row"><span class="lbl">💰 Preço</span><strong>${hasDiscount ? `<span class="price-orig">${money(currentOrder.originalPrice)}</span>` : ""}${money(disc)}</strong></div>
+        <div class="admin-row"><span class="lbl">📋 Plano</span><strong>${currentOrder.planLabel}</strong></div>
+      </div>
+      <p class="form-note"><strong>📝 Descrição:</strong> ${categoryDescText(currentOrder.category)}</p>
+      <p class="form-note"><strong>ℹ️ Informações do plano:</strong> ${categoryInfoText(currentOrder.category)}</p>
+      <div class="field"><label for="ckName">Seu nome</label><input id="ckName" autocomplete="name" value="${contact.name || ""}" placeholder="Nome completo"></div>
+      <div class="field"><label for="ckPhone">WhatsApp (opcional, facilita o contato)</label><input id="ckPhone" inputmode="tel" autocomplete="tel" value="${contact.phone || ""}" placeholder="(00) 00000-0000"></div>
+      <p class="form-status" id="ckStatus"></p>
+      <div class="admin-actions"><button class="btn btn-primary btn-block" id="orderContinueBtn" type="button">Continuar para pagamento</button></div>
+    `;
+    bindOrderClose();
+    document.getElementById("orderContinueBtn").addEventListener("click", () => {
+      const name = document.getElementById("ckName").value.trim();
+      const phone = document.getElementById("ckPhone").value.trim();
+      const statusEl = document.getElementById("ckStatus");
+      if (name.length < 2) {
+        statusEl.textContent = "Informe seu nome para continuar.";
+        statusEl.className = "form-status show err";
+        return;
+      }
+      currentOrder.customer = { name, phone };
+      saveCheckoutContact(currentOrder.customer);
+      orderStep = "summary";
+      renderOrderModal();
+    });
+
+  } else if (orderStep === "summary") {
+    orderBox.innerHTML = `
+      <button class="modal-close" id="orderCloseBtn" aria-label="Fechar">✕</button>
+      <h3>🛒 Resumo do pedido</h3>
+      <div class="order-summary">
+        <div class="admin-row"><span class="lbl">Produto</span><strong>${currentOrder.serviceName}</strong></div>
+        <div class="admin-row"><span class="lbl">Plano</span><strong>${currentOrder.planLabel}</strong></div>
+        <div class="admin-row"><span class="lbl">Cliente</span><strong>${currentOrder.customer.name}</strong></div>
+      </div>
+      <div class="order-total">TOTAL <span>${money(disc)}</span></div>
+      <div class="admin-actions"><button class="btn btn-primary btn-block" id="orderPayBtn" type="button">💳 Pagar via Pix</button></div>
+    `;
+    bindOrderClose();
+    document.getElementById("orderPayBtn").addEventListener("click", () => { orderStep = "warning"; renderOrderModal(); });
+
+  } else if (orderStep === "warning") {
+    orderBox.innerHTML = `
+      <button class="modal-close" id="orderCloseBtn" aria-label="Fechar">✕</button>
+      <h3>⚠️ ATENÇÃO! CONFIRA O VALOR ANTES DE PAGAR</h3>
+      <p class="form-note">Para evitar problemas com seu pedido, realize o pagamento utilizando <strong>exatamente</strong> o valor informado abaixo. Não altere o valor da cobrança.</p>
+      <div class="order-summary" style="margin-top:10px">
+        <div class="admin-row"><span class="lbl">Produto</span><strong>${currentOrder.serviceName} — ${currentOrder.planLabel}</strong></div>
+        <div class="admin-row"><span class="lbl">Valor a pagar</span><strong style="color:var(--warn); font-size:1.1rem">${money(disc)}</strong></div>
+      </div>
+      <div class="admin-actions" style="flex-direction:column; align-items:stretch; margin-top:14px">
+        <button class="btn btn-primary btn-block" id="warnContinueBtn" type="button">Entendi, continuar</button>
+        <button class="btn btn-ghost btn-block" id="warnCancelBtn" type="button">Cancelar</button>
+      </div>
+    `;
+    bindOrderClose();
+    document.getElementById("warnCancelBtn").addEventListener("click", closeOrderModal);
+    document.getElementById("warnContinueBtn").addEventListener("click", () => { orderStep = "payment"; renderOrderModal(); });
+
+  } else if (orderStep === "payment") {
+    renderPaymentStep();
+
+  } else if (orderStep === "status") {
+    renderStatusStep();
+  }
+}
+
+/* ---- etapa de pagamento: cria o pedido no backend e mostra a chave Pix ---- */
+async function renderPaymentStep() {
+  orderBox.innerHTML = `
+    <button class="modal-close" id="orderCloseBtn" aria-label="Fechar">✕</button>
+    <h3>💳 Pagamento via Pix</h3>
+    <div id="pixArea"><p class="form-note">⏳ Registrando seu pedido…</p></div>
+  `;
+  bindOrderClose();
+
+  try {
+    if (!currentOrder.clientRef) currentOrder.clientRef = generateOrderId() + "-" + Math.random().toString(36).slice(2, 8);
+
+    const created = await apiPost("/orders", {
+      serviceId: currentOrder.serviceId,
+      planIndex: currentOrder.planIndex,
+      couponCode: appliedCoupon ? appliedCoupon.code : null,
+      customerName: currentOrder.customer.name,
+      customerPhone: currentOrder.customer.phone || null,
+      clientRef: currentOrder.clientRef,
+    });
+
+    currentOrder.id = created.orderId;
+    currentOrder.finalPrice = created.amount;
+    currentOrder.status = created.status;
+    saveLastOrder(currentOrder);
+
+    const pixArea = document.getElementById("pixArea");
+    if (!pixArea) return;
+
+    const hasKey = !!(PUBLIC_CFG.pixKey && PUBLIC_CFG.pixKey.trim());
+    pixArea.innerHTML = `
+      <div class="order-summary">
+        <div class="admin-row"><span class="lbl">Produto</span><strong>${created.serviceName} — ${created.planLabel}</strong></div>
+        <div class="admin-row"><span class="lbl">Valor a pagar</span><strong>${money(created.amount)}</strong></div>
+        <div class="admin-row"><span class="lbl">Nº do pedido</span><strong>${created.orderId}</strong></div>
+      </div>
+      ${hasKey ? `
+        <div class="field" style="margin-top:14px">
+          <label>Chave Pix${PUBLIC_CFG.pixKeyType ? " (" + PUBLIC_CFG.pixKeyType + ")" : ""}</label>
+          <input id="pixKeyBox" readonly value="${PUBLIC_CFG.pixKey}">
+        </div>
+        ${PUBLIC_CFG.pixHolderName ? `<p class="form-note">👤 <strong>Titular:</strong> ${PUBLIC_CFG.pixHolderName}</p>` : ""}
+        <div class="admin-actions" style="flex-direction:column; align-items:stretch;">
+          <button class="btn btn-primary btn-block" id="copyPixBtn" type="button">📋 Copiar chave Pix</button>
+        </div>
+        <p class="form-note" style="margin-top:12px">1️⃣ Copie a chave acima. 2️⃣ Abra o app do seu banco e pague exatamente <strong>${money(created.amount)}</strong>. 3️⃣ Envie o comprovante pelo WhatsApp para confirmarmos seu pedido.</p>
+        <div class="admin-actions" style="flex-direction:column; align-items:stretch; margin-top:6px">
+          <button class="btn btn-wpp btn-block" id="sendReceiptBtn" type="button">📲 Enviar comprovante pelo WhatsApp</button>
+          <button class="btn btn-ghost btn-block" id="goStatusBtn" type="button">📋 Acompanhar status do pedido</button>
+        </div>
+      ` : `
+        <p class="form-note" style="color:var(--warn)">⚠️ A loja ainda não configurou uma chave Pix neste site. Fale direto pelo WhatsApp para combinar o pagamento.</p>
+        <div class="admin-actions" style="flex-direction:column; align-items:stretch;">
+          <button class="btn btn-wpp btn-block" id="sendReceiptBtn" type="button">💬 Falar pelo WhatsApp</button>
+        </div>
+      `}
+    `;
+
+    if (hasKey) {
+      document.getElementById("copyPixBtn").addEventListener("click", () => {
+        const btn = document.getElementById("copyPixBtn");
+        const done = () => { btn.textContent = "✅ Copiado"; setTimeout(() => { btn.textContent = "📋 Copiar chave Pix"; }, 1500); };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(PUBLIC_CFG.pixKey).then(done).catch(() => alert("Não foi possível copiar automaticamente. Copie manualmente: " + PUBLIC_CFG.pixKey));
+        } else {
+          document.getElementById("pixKeyBox").select();
+          done();
+        }
+      });
+      document.getElementById("goStatusBtn").addEventListener("click", () => { orderStep = "status"; renderOrderModal(); });
+    }
+    document.getElementById("sendReceiptBtn").addEventListener("click", () => {
+      openWhatsApp(buildFinalOrderMessage(currentOrder, created.amount));
+      orderStep = "status";
+      renderOrderModal();
+    });
+  } catch (err) {
+    const pixArea = document.getElementById("pixArea");
+    if (!pixArea) return;
+    pixArea.innerHTML = `
+      <p class="form-note" style="color:var(--danger)">⚠️ ${err.message}</p>
+      <div class="admin-actions" style="flex-direction:column; align-items:stretch;">
+        <button class="btn btn-primary btn-block" id="retryBtn" type="button">Tentar novamente</button>
+      </div>
+    `;
+    document.getElementById("retryBtn").addEventListener("click", () => renderPaymentStep());
+  }
+}
+
+/* ---- etapa de status: consulta o backend e atualiza periodicamente ---- */
+let orderPollTimer = null;
+function stopOrderPolling() { clearInterval(orderPollTimer); orderPollTimer = null; }
+function startOrderPolling(orderId) {
+  stopOrderPolling();
+  const check = async () => {
+    try {
+      const data = await apiGet(`/orders/${encodeURIComponent(orderId)}`);
+      if (!currentOrder || currentOrder.id !== orderId) { stopOrderPolling(); return; }
+      if (data.status !== currentOrder.status) {
+        currentOrder.status = data.status;
+        saveLastOrder(currentOrder);
+        if (orderStep === "status") renderStatusStep();
+      }
+      if (data.status === "completed" || data.status === "cancelled") stopOrderPolling();
+    } catch (e) { /* falha pontual de rede — tenta de novo na próxima checagem */ }
+  };
+  check();
+  orderPollTimer = setInterval(check, 5000);
+}
+
+const STATUS_INFO = {
+  pending:   { icon: "🟡", label: "Aguardando pagamento",  idx: 0 },
+  review:    { icon: "🔵", label: "Em análise",             idx: 1 },
+  paid:      { icon: "🟢", label: "Pagamento confirmado",   idx: 2 },
+  completed: { icon: "🟣", label: "Pedido concluído",       idx: 3 },
+  cancelled: { icon: "🔴", label: "Pedido cancelado",       idx: -1 },
+};
+
+function renderStatusStep() {
+  if (!currentOrder) return;
+  const status = currentOrder.status || "pending";
+  const info = STATUS_INFO[status] || STATUS_INFO.pending;
+  const steps = ["pending", "review", "paid", "completed"];
+
+  orderBox.innerHTML = `
+    <button class="modal-close" id="orderCloseBtn" aria-label="Fechar">✕</button>
+    <h3>📋 Status do pedido — ${currentOrder.id}</h3>
+    ${status === "cancelled" ? `
+      <div class="status-track"><div class="status-step active" style="color:var(--danger)"><span class="dot-status">🔴</span> Pedido cancelado</div></div>
+      <p class="form-note" style="color:var(--danger)">Este pedido foi cancelado. Fale com a gente pelo WhatsApp se precisar de ajuda.</p>
+    ` : `
+      <div class="status-track">
+        ${steps.map(s => `<div class="status-step ${STATUS_INFO[s].idx <= info.idx ? "active" : ""}"><span class="dot-status">${STATUS_INFO[s].icon}</span> ${STATUS_INFO[s].label}</div>`).join("")}
+      </div>
+      <p class="form-note">Assim que a ${CONFIG.storeName} confirmar seu comprovante, este status é atualizado sozinho — não é preciso ficar perguntando.</p>
+    `}
+    <div class="admin-actions" style="flex-direction:column; align-items:stretch;">
+      <button class="btn btn-wpp btn-block" id="sendWppBtn" type="button">📲 Enviar comprovante pelo WhatsApp</button>
+    </div>
+  `;
+  bindOrderClose();
+  document.getElementById("sendWppBtn").addEventListener("click", () => {
+    openWhatsApp(buildFinalOrderMessage(currentOrder, currentOrder.finalPrice));
+  });
+  if (status !== "completed" && status !== "cancelled") startOrderPolling(currentOrder.id);
+}
+
+/* =========================================================
+   6. AVISOS DA LOJA
+   ========================================================= */
+function getDismissed() {
+  try { return JSON.parse(sessionStorage.getItem(NOTICE_DISMISS_KEY) || "[]"); }
+  catch { return []; }
+}
+function dismissNotice(id) {
+  const list = getDismissed();
+  if (!list.includes(id)) list.push(id);
+  try { sessionStorage.setItem(NOTICE_DISMISS_KEY, JSON.stringify(list)); } catch (e) { console.warn(e); }
+  renderNotices();
+}
+function renderNotices() {
+  const wrap = document.getElementById("noticesWrap");
+  const dismissed = getDismissed();
+  const active = (CONFIG.notices || []).filter(n => n.active && !dismissed.includes(n.id));
+  wrap.innerHTML = "";
+  active.forEach(n => {
+    const bar = document.createElement("div");
+    bar.className = `notice-bar ${n.type || "info"}`;
+    bar.setAttribute("role", "status");
+    bar.innerHTML = `<div class="wrap"><span class="notice-text">${n.text}</span>
+      <button class="notice-close" aria-label="Fechar aviso" data-id="${n.id}">✕</button></div>`;
+    bar.querySelector(".notice-close").addEventListener("click", () => dismissNotice(n.id));
+    wrap.appendChild(bar);
+  });
+}
+
+/* =========================================================
+   7. RENDER — marca, destaques, catálogo, faq, passos
+   ========================================================= */
+function renderBrand() {
+  document.title = `${CONFIG.storeName} | Serviços Digitais — Spotify, Netflix, Disney+ e mais`;
+  document.getElementById("brandMark").textContent = CONFIG.logoEmoji;
+  document.getElementById("brandName").textContent = CONFIG.storeName;
+  document.getElementById("chatBrandName").textContent = CONFIG.storeName;
+  document.getElementById("footerBrand").textContent = `${CONFIG.storeName} © ${new Date().getFullYear()}`;
+  document.getElementById("heroSlogan").textContent = CONFIG.slogan;
+  document.getElementById("heroSub").textContent = CONFIG.tagline;
+
+  const hasInsta = !!(CONFIG.instagramUrl && CONFIG.instagramUrl.trim());
+  const contactInsta = document.getElementById("contactInstaBtn");
+  const footerInsta = document.getElementById("footerInstaBtn");
+  [contactInsta, footerInsta].forEach(el => {
+    if (hasInsta) { el.style.display = ""; el.href = CONFIG.instagramUrl; el.target = "_blank"; el.rel = "noopener"; }
+    else { el.style.display = "none"; }
+  });
+}
+
+/* listeners de WhatsApp/Instagram/pedido — ligados uma única vez (config é lida em tempo real) */
+function bindStaticActions() {
+  ["heroWppBtn", "footerWppBtn", "contactWppBtn"].forEach(id => {
+    const btn = document.getElementById(id);
+    if (btn) btn.addEventListener("click", (e) => { e.preventDefault(); openWhatsApp(whatsappGreeting()); });
+  });
+  const trackBtn = document.getElementById("trackOrderBtn");
+  if (trackBtn) trackBtn.addEventListener("click", trackLastOrder);
+}
+
+function cheapestTier(svc) {
+  if (svc.type === "single") return { label: "Acesso", price: svc.price };
+  return svc.tiers.reduce((min, t) => t.price < min.price ? t : min, svc.tiers[0]);
+}
+
+function renderFeatured() {
+  const wrap = document.getElementById("featuredScroll");
+  wrap.innerHTML = "";
+  const featured = validateServices(CONFIG.services).filter(s => s.featured && s.active !== false);
+  if (!featured.length) { wrap.parentElement.style.display = "none"; return; }
+  wrap.parentElement.style.display = "";
+  featured.forEach(svc => {
+    const from = svc.type === "tiers";
+    const cheapest = cheapestTier(svc);
+    const disc = discountedPrice(cheapest.price);
+    const hasDiscount = disc < cheapest.price;
+    const el = document.createElement("div");
+    el.className = "card fcard";
+    el.setAttribute("role", "listitem");
+    el.innerHTML = `
+      <div class="ftop"><span class="card-icon" aria-hidden="true">${svc.icon}</span><h3 style="margin:0;font-size:0.98rem">${svc.name}</h3></div>
+      <span class="badge">${categoryLabel(svc.category)}</span>
+      <div>
+        ${from ? `<div class="fprice-from">a partir de</div>` : ""}
+        <div class="fprice">${hasDiscount ? `<span class="price-orig">${money(cheapest.price)}</span>` : ""}${money(disc)}</div>
+      </div>
+      <button class="btn btn-primary btn-sm btn-block" data-order="${svc.id}">Comprar agora</button>
+    `;
+    el.querySelector("[data-order]").addEventListener("click", () => quickOrder(svc));
+    wrap.appendChild(el);
+  });
+}
+
+function quickOrder(svc) {
+  if (svc.type === "single") {
+    openProductModal(svc.id, svc.name, svc.category, "Acesso individual", null, svc.price);
+    return;
+  }
+  let cheapestIdx = 0;
+  svc.tiers.forEach((t, i) => { if (t.price < svc.tiers[cheapestIdx].price) cheapestIdx = i; });
+  openProductModal(svc.id, svc.name, svc.category, svc.tiers[cheapestIdx].label, cheapestIdx, svc.tiers[cheapestIdx].price);
+}
+
+let activeCategory = "all";
+let searchQuery = "";
+
+function renderCategoryChips() {
+  const wrap = document.getElementById("categoryChips");
+  wrap.innerHTML = "";
+  const allChip = document.createElement("button");
+  allChip.className = "chip"; allChip.type = "button"; allChip.textContent = "Todos";
+  allChip.setAttribute("aria-pressed", activeCategory === "all" ? "true" : "false");
+  allChip.addEventListener("click", () => { activeCategory = "all"; renderCategoryChips(); renderCatalog(); });
+  wrap.appendChild(allChip);
+
+  CONFIG.categories.forEach(cat => {
+    const chip = document.createElement("button");
+    chip.className = "chip"; chip.type = "button"; chip.textContent = `${cat.icon ? cat.icon + " " : ""}${cat.label}`;
+    chip.setAttribute("aria-pressed", activeCategory === cat.id ? "true" : "false");
+    chip.addEventListener("click", () => { activeCategory = cat.id; renderCategoryChips(); renderCatalog(); });
+    wrap.appendChild(chip);
+  });
+}
+
+function renderCategoryCards() {
+  const wrap = document.getElementById("categoryCardsGrid");
+  if (!wrap) return;
+  wrap.innerHTML = CONFIG.categories.map(cat => `
+    <button type="button" class="card cat-card" data-cat="${cat.id}">
+      <span class="cat-card-icon" aria-hidden="true">${cat.icon || "🏷️"}</span>
+      <span class="cat-card-label">${cat.label}</span>
+    </button>
+  `).join("");
+  wrap.querySelectorAll("[data-cat]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      activeCategory = btn.dataset.cat;
+      renderCategoryChips();
+      renderCatalog();
+      document.getElementById("servicos").scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  });
+}
+
+function renderCatalog() {
+  const grid = document.getElementById("catalogGrid");
+  const empty = document.getElementById("emptyState");
+  grid.innerHTML = "";
+
+  const services = validateServices(CONFIG.services).filter(s => s.active !== false);
+  const filtered = services.filter(s => {
+    const matchesCat = activeCategory === "all" || s.category === activeCategory;
+    const matchesSearch = !searchQuery || normalize(s.name).includes(normalize(searchQuery));
+    return matchesCat && matchesSearch;
+  });
+
+  if (!filtered.length) { empty.classList.add("show"); }
+  else { empty.classList.remove("show"); }
+
+  filtered.forEach(svc => {
+    const card = document.createElement("div");
+    card.className = "card product-card";
+    card.setAttribute("role", "listitem");
+
+    let bodyHtml = "";
+    if (svc.type === "tiers") {
+      bodyHtml = `<div class="tier-rows">
+        ${svc.tiers.map((t, i) => {
+          const disc = discountedPrice(t.price);
+          const hasDiscount = disc < t.price;
+          return `<div class="tier-row">
+            <div class="tier-row-info">
+              <span class="tier-row-label">${t.label}</span>
+              <span class="tier-row-price">${hasDiscount ? `<span class="price-orig">${money(t.price)}</span>` : ""}${money(disc)}</span>
+            </div>
+            <button class="btn btn-primary btn-sm" data-buy-tier="${i}">Comprar agora</button>
+          </div>`;
+        }).join("")}
+      </div>`;
+    } else {
+      const disc = discountedPrice(svc.price);
+      const hasDiscount = disc < svc.price;
+      bodyHtml = `
+        <div class="price-line"><span class="label">Valor</span><span class="val">${hasDiscount ? `<span class="price-orig">${money(svc.price)}</span>` : ""}${money(disc)}</span></div>
+        <button class="btn btn-primary btn-block" data-buy-single="1">Comprar agora</button>
+      `;
+    }
+
+    card.innerHTML = `
+      <div class="card-top">
+        <span class="card-icon" aria-hidden="true">${svc.icon}</span>
+        <div><h3>${svc.name}</h3><div class="cat-tag">${categoryLabel(svc.category)}</div></div>
+      </div>
+      ${bodyHtml}
+      <p class="card-note">Confirme o pedido, pague via Pix e finalize pelo WhatsApp.</p>
+    `;
+
+    if (svc.type === "tiers") {
+      card.querySelectorAll("[data-buy-tier]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const idx = Number(btn.dataset.buyTier);
+          const tier = svc.tiers[idx];
+          openProductModal(svc.id, svc.name, svc.category, tier.label, idx, tier.price);
+        });
+      });
+    } else {
+      card.querySelector("[data-buy-single]").addEventListener("click", () => {
+        openProductModal(svc.id, svc.name, svc.category, "Acesso individual", null, svc.price);
+      });
+    }
+
+    grid.appendChild(card);
+  });
+
+  // popular select do formulário de contato
+  const fservice = document.getElementById("fService");
+  fservice.innerHTML = `<option value="">Selecione um serviço</option>` +
+    services.map(s => `<option value="${s.name}">${s.name}</option>`).join("") +
+    `<option value="Outro">Outro / não sei ainda</option>`;
+}
+
+function renderSteps() {
+  const steps = [
+    { icon: "1️⃣", title: "Escolha seu serviço", text: "Navegue pelo catálogo ou use a busca para encontrar o que precisa." },
+    { icon: "2️⃣", title: "Confira o pedido", text: "Veja o resumo com produto, plano, valor e o ID do seu pedido." },
+    { icon: "3️⃣", title: "Faça o pagamento via Pix", text: "Abra a cobrança Pix, confira o valor certo e realize o pagamento." },
+    { icon: "4️⃣", title: "Envie o pedido pelo WhatsApp", text: "Um clique e a mensagem com os detalhes do pedido é enviada pra gente." },
+    { icon: "5️⃣", title: "Aguarde a confirmação e o atendimento", text: "A LD STORE confirma o pagamento manualmente e dá andamento ao seu pedido." },
+  ];
+  const grid = document.getElementById("stepsGrid");
+  grid.innerHTML = steps.map((s, i) => `
+    <div class="card step-card">
+      <div class="step-num" aria-hidden="true">${i+1}</div>
+      <h3>${s.icon} ${s.title}</h3>
+      <p>${s.text}</p>
+    </div>
+  `).join("");
+}
+
+function renderFaq() {
+  const list = document.getElementById("faqList");
+  list.innerHTML = (CONFIG.faq || []).map((item, i) => `
+    <details class="card faq-item">
+      <summary id="faq-sum-${i}">${item.q}</summary>
+      <p>${item.a}</p>
+    </details>
+  `).join("");
+}
+
+/* =========================================================
+   8. FAB — WhatsApp e Chat
+   ========================================================= */
+document.getElementById("fabWpp").addEventListener("click", () => openWhatsApp(whatsappGreeting()));
+
+const chatOverlay = document.getElementById("chatOverlay");
+const chatBody = document.getElementById("chatBody");
+let lastFocusedBeforeChat = null;
+
+function openChat() {
+  lastFocusedBeforeChat = document.activeElement;
+  chatOverlay.classList.add("show");
+  chatBody.innerHTML = "";
+  startChatFlow();
+  document.getElementById("closeChat").focus();
+}
+function closeChat() {
+  chatOverlay.classList.remove("show");
+  if (lastFocusedBeforeChat) lastFocusedBeforeChat.focus();
+}
+document.getElementById("fabChat").addEventListener("click", openChat);
+document.getElementById("closeChat").addEventListener("click", closeChat);
+chatOverlay.addEventListener("click", e => { if (e.target === chatOverlay) closeChat(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape" && chatOverlay.classList.contains("show")) closeChat(); });
+
+function addBotMsg(text) {
+  const el = document.createElement("div"); el.className = "msg bot"; el.textContent = text;
+  chatBody.appendChild(el); chatBody.scrollTop = chatBody.scrollHeight;
+}
+function addUserMsg(text) {
+  const el = document.createElement("div"); el.className = "msg user"; el.textContent = text;
+  chatBody.appendChild(el); chatBody.scrollTop = chatBody.scrollHeight;
+}
+function addOptions(options) {
+  const wrap = document.createElement("div"); wrap.className = "chat-options";
+  options.forEach(opt => {
+    const btn = document.createElement("button"); btn.className = "chat-opt-btn"; btn.type = "button"; btn.textContent = opt.label;
+    btn.addEventListener("click", () => { wrap.remove(); addUserMsg(opt.label); setTimeout(() => opt.action(), 300); });
+    wrap.appendChild(btn);
+  });
+  chatBody.appendChild(wrap); chatBody.scrollTop = chatBody.scrollHeight;
+}
+function mainMenu() {
+  addOptions([
+    { label: "🛒 Ver serviços", action: showServicesInChat },
+    { label: "💳 Formas de pagamento", action: showPayment },
+    { label: "📦 Já sou cliente", action: showExistingCustomer },
+    { label: "👨‍💻 Falar com atendente", action: talkToHuman },
+  ]);
+}
+function showServicesInChat() {
+  const services = validateServices(CONFIG.services).filter(s => s.active !== false);
+  const lines = services.map(s => s.type === "tiers"
+    ? `${s.icon} ${s.name}: ` + s.tiers.map(t => `${t.label} ${money(t.price)}`).join(" · ")
+    : `${s.icon} ${s.name}: ${money(s.price)}`).join("\n");
+  addBotMsg("Aqui está nossa tabela atual:\n\n" + lines);
+  setTimeout(() => {
+    addBotMsg("Quer pedir algum deles ou falar direto com a gente?");
+    addOptions([
+      { label: "👨‍💻 Falar com atendente", action: talkToHuman },
+      { label: "⬅️ Voltar ao menu", action: mainMenu },
+    ]);
+  }, 400);
+}
+function showPayment() {
+  addBotMsg("O pagamento é combinado diretamente com a loja durante o atendimento — normalmente via Pix. Não pedimos dados de cartão ou senhas por aqui.");
+  setTimeout(() => addOptions([
+    { label: "👨‍💻 Falar com atendente", action: talkToHuman },
+    { label: "⬅️ Voltar ao menu", action: mainMenu },
+  ]), 400);
+}
+function showExistingCustomer() {
+  addBotMsg("Legal! Para suporte de um serviço que você já tem com a gente, o mais rápido é falar direto pelo WhatsApp — assim conseguimos ver seu histórico.");
+  setTimeout(() => addOptions([
+    { label: "💬 Ir para o WhatsApp", action: () => openWhatsApp(fillTemplate(CONFIG.messages.existingCustomer, { store: CONFIG.storeName })) },
+    { label: "⬅️ Voltar ao menu", action: mainMenu },
+  ]), 400);
+}
+function talkToHuman() {
+  if (currentStatus.open) {
+    addBotMsg("Show! Nosso atendimento está online agora 🟢 — clique abaixo para continuar pelo WhatsApp.");
+    setTimeout(() => addOptions([
+      { label: "💬 Ir para o WhatsApp", action: () => openWhatsApp(whatsappGreeting()) },
+      { label: "⬅️ Voltar ao menu", action: mainMenu },
+    ]), 400);
+  } else {
+    addBotMsg("🔴 No momento nosso atendimento está encerrado.\n\n" + hoursSummaryText() + "\n\n" + describeNextOpen(currentStatus));
+    setTimeout(() => {
+      addBotMsg("Você pode deixar sua mensagem no formulário do site ou já mandar pelo WhatsApp — respondemos assim que reabrirmos.");
+      addOptions([
+        { label: "💬 Deixar mensagem no WhatsApp", action: () => openWhatsApp(whatsappGreeting()) },
+        { label: "⬅️ Voltar ao menu", action: mainMenu },
+      ]);
+    }, 400);
+  }
+}
+function startChatFlow() {
+  addBotMsg(`Olá! 👋 Seja bem-vindo à ${CONFIG.storeName}!\nComo podemos ajudar?`);
+  setTimeout(mainMenu, 350);
+}
+
+/* =========================================================
+   9. FORMULÁRIO DE CONTATO
+   ========================================================= */
+document.getElementById("contactForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const name = document.getElementById("fName").value.trim();
+  const service = document.getElementById("fService").value;
+  const msg = document.getElementById("fMsg").value.trim();
+  const statusEl = document.getElementById("formStatus");
+
+  if (!name || !msg) {
+    statusEl.textContent = "Preencha ao menos seu nome e a mensagem.";
+    statusEl.className = "form-status show err";
+    return;
+  }
+  const fullMsg = `Olá! Meu nome é ${name}.\n` + (service ? `Tenho interesse em: ${service}\n` : "") + `Mensagem: ${msg}`;
+  statusEl.textContent = "Abrindo o WhatsApp com sua mensagem pronta — confirme o envio por lá. (Este site ainda não tem servidor próprio para receber mensagens automaticamente.)";
+  statusEl.className = "form-status show ok";
+  openWhatsApp(fullMsg);
+});
+
+/* =========================================================
+   10. NAV MOBILE
+   ========================================================= */
+const hamburgerBtn = document.getElementById("hamburgerBtn");
+const mobileMenu = document.getElementById("mobileMenu");
+hamburgerBtn.addEventListener("click", () => {
+  const isOpen = mobileMenu.classList.toggle("show");
+  hamburgerBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+  hamburgerBtn.textContent = isOpen ? "✕" : "☰";
+});
+mobileMenu.querySelectorAll("a").forEach(a => a.addEventListener("click", () => {
+  mobileMenu.classList.remove("show");
+  hamburgerBtn.setAttribute("aria-expanded", "false");
+  hamburgerBtn.textContent = "☰";
+}));
+
+/* =========================================================
+   11. PAINEL ADMINISTRATIVO
+   ========================================================= */
+const adminOverlay = document.getElementById("adminOverlay");
+const adminBox = document.getElementById("adminBox");
+let adminUnlocked = false;
+let adminActiveTab = "geral";
+
+function renderAdminLogin() {
+  adminBox.innerHTML = `
+    <button class="modal-close" id="adminCloseBtn" aria-label="Fechar">✕</button>
+    <h3>Área administrativa</h3>
+    <div class="admin-warning">⚠️ Este login só afasta visitantes casuais — o código fica no próprio arquivo do site, então não é segurança real.</div>
+    <div class="field"><label for="adminPass">Senha</label><input type="password" id="adminPass"></div>
+    <div class="admin-actions"><button class="btn btn-primary btn-sm" id="adminLoginBtn" type="button">Entrar</button></div>
+  `;
+  document.getElementById("adminCloseBtn").addEventListener("click", closeAdmin);
+  document.getElementById("adminLoginBtn").addEventListener("click", () => {
+    const val = document.getElementById("adminPass").value;
+    if (val === CONFIG.adminPassword) { adminUnlocked = true; renderAdminPanel(); }
+    else alert("Senha incorreta.");
+  });
+}
+
+function adminTabsHtml() {
+  const tabs = [
+    ["geral", "Geral"], ["horarios", "Horários"], ["produtos", "Produtos"],
+    ["cupons", "Cupons"], ["avisos", "Avisos"], ["mensagens", "Mensagens"],
+  ];
+  return `<div class="admin-tabs" role="tablist">` +
+    tabs.map(([id,label]) => `<button class="admin-tab" role="tab" type="button" data-tab="${id}" aria-selected="${adminActiveTab===id}">${label}</button>`).join("") +
+    `</div>`;
+}
+
+function renderAdminPanel() {
+  adminBox.innerHTML = `
+    <button class="modal-close" id="adminCloseBtn" aria-label="Fechar">✕</button>
+    <h3>Painel administrativo</h3>
+    <div class="admin-warning">⚠️ Alterações aqui ficam salvas <strong>apenas neste navegador</strong>. Para um painel que atualiza o site para todos os visitantes, é preciso um backend com banco de dados — posso te ajudar a montar isso quando quiser evoluir o projeto.</div>
+    ${adminTabsHtml()}
+    <div id="adminPanelBody"></div>
+    <div class="admin-actions">
+      <button class="btn btn-primary btn-sm" id="adminSaveBtn" type="button">Salvar alterações</button>
+      <button class="btn btn-ghost btn-sm btn-danger-outline" id="adminResetBtn" type="button">Restaurar padrão</button>
+    </div>
+  `;
+  document.getElementById("adminCloseBtn").addEventListener("click", closeAdmin);
+  adminBox.querySelectorAll(".admin-tab").forEach(t => t.addEventListener("click", () => { adminActiveTab = t.dataset.tab; renderAdminPanel(); }));
+  document.getElementById("adminResetBtn").addEventListener("click", () => {
+    if (confirm("Restaurar todos os dados para o padrão original? Isso apaga as alterações salvas neste navegador.")) {
+      localStorage.removeItem(STORAGE_KEY);
+      CONFIG = structuredClone(DEFAULT_CONFIG);
+      renderEverything();
+      renderAdminPanel();
+    }
+  });
+  document.getElementById("adminSaveBtn").addEventListener("click", saveAdminForm);
+  renderAdminTabBody();
+}
+
+function renderAdminTabBody() {
+  const body = document.getElementById("adminPanelBody");
+  if (adminActiveTab === "geral") {
+    body.innerHTML = `
+      <div class="admin-grid">
+        <div class="admin-row"><span class="lbl">Nome da loja</span><input id="adNome" value="${CONFIG.storeName}"></div>
+        <div class="admin-row"><span class="lbl">Emoji / logo</span><input id="adLogo" value="${CONFIG.logoEmoji}"></div>
+        <div class="admin-row"><span class="lbl">Slogan</span><input id="adSlogan" value="${CONFIG.slogan}"></div>
+        <div class="admin-row"><span class="lbl">Texto principal</span><input id="adTag" value="${CONFIG.tagline}"></div>
+        <div class="admin-row"><span class="lbl">WhatsApp (só números, DDI+DDD)</span><input id="adWpp" value="${CONFIG.whatsappNumber}"></div>
+        <div class="admin-row"><span class="lbl">Link do Instagram (opcional)</span><input id="adInsta" value="${CONFIG.instagramUrl}" placeholder="https://instagram.com/seu.perfil"></div>
+        <div class="admin-row"><span class="lbl">Senha do admin</span><input id="adPass" value="${CONFIG.adminPassword}"></div>
+      </div>
+      <p class="form-note" style="margin-top:12px">O link do Instagram só aparece no site quando preenchido.</p>
+      <p class="form-note" style="margin-top:8px">💳 A chave Pix, o titular e o WhatsApp usado na hora do pagamento são configurados no servidor (variáveis de ambiente <code>PIX_KEY</code>, <code>PIX_HOLDER_NAME</code> e <code>WHATSAPP_NUMBER</code>) — isso substitui automaticamente o campo de WhatsApp acima quando estiver preenchido no servidor. Veja o README do projeto.</p>
+      <p class="form-note" style="margin-top:8px">📋 Os pedidos e o status de pagamento agora ficam em <a href="/admin" target="_blank" rel="noopener" style="color:var(--purple-soft)">/admin</a> — um painel separado, com login próprio verificado pelo servidor.</p>`;
+  } else if (adminActiveTab === "horarios") {
+    body.innerHTML = `
+      <div class="admin-grid">
+        <div class="admin-row"><span class="lbl">Seg a Sex — abre</span><input id="adSemAbre" value="${minToHHMM(CONFIG.hours[1][0])}"></div>
+        <div class="admin-row"><span class="lbl">Seg a Sex — fecha</span><input id="adSemFecha" value="${minToHHMM(CONFIG.hours[1][1])}"></div>
+        <div class="admin-row"><span class="lbl">Sábado — abre</span><input id="adSabAbre" value="${minToHHMM(CONFIG.hours[6][0])}"></div>
+        <div class="admin-row"><span class="lbl">Sábado — fecha</span><input id="adSabFecha" value="${minToHHMM(CONFIG.hours[6][1])}"></div>
+        <div class="admin-row"><span class="lbl">Domingo — abre</span><input id="adDomAbre" value="${minToHHMM(CONFIG.hours[0][0])}"></div>
+        <div class="admin-row"><span class="lbl">Domingo — fecha</span><input id="adDomFecha" value="${minToHHMM(CONFIG.hours[0][1])}"></div>
+      </div>`;
+  } else if (adminActiveTab === "produtos") {
+    body.innerHTML = `
+      <p class="form-note" style="margin-bottom:12px">⚠️ O valor que o cliente realmente vê para pagar (na tela de aviso e no Pix) vem do backend (<code>server.js</code>, catálogo <code>SERVICES</code>), por segurança — é a fonte da verdade. Editar aqui muda só o que aparece nesta tela neste navegador; ao recarregar, os preços do servidor sobrescrevem qualquer alteração feita aqui. Para mudar preços de verdade, edite <code>server.js</code> no GitHub e o Render publica sozinho.</p>
+      <div id="adProdutosWrap"></div>
+      <div class="admin-row" style="margin-top:14px; align-items:flex-start; flex-wrap:wrap;">
+        <span class="lbl">Novo produto</span>
+        <div style="flex:1; display:flex; flex-direction:column; gap:8px; min-width:200px;">
+          <input id="npName" placeholder="Nome do produto">
+          <select id="npCat">${CONFIG.categories.map(c => `<option value="${c.id}">${c.label}</option>`).join("")}</select>
+          <input id="npPrice" placeholder="Preço (ex: 15.00)" inputmode="decimal">
+          <button class="btn btn-ghost btn-sm" id="npAddBtn" type="button">➕ Adicionar produto</button>
+        </div>
+      </div>`;
+    const prodWrap = document.getElementById("adProdutosWrap");
+    CONFIG.services.forEach((s, i) => {
+      const row = document.createElement("div");
+      row.className = "product-row";
+      let priceFields = "";
+      if (s.type === "single") {
+        priceFields = `<div class="admin-row"><span class="lbl">Preço</span><input data-idx="${i}" data-type="single" class="price-input" value="${(s.price||0).toFixed(2)}"></div>`;
+      } else {
+        priceFields = s.tiers.map((t, ti) => `<div class="admin-row"><span class="lbl">${t.label}</span><input data-idx="${i}" data-tier="${ti}" data-type="tier" class="price-input" value="${(t.price||0).toFixed(2)}"></div>`).join("");
+      }
+      row.innerHTML = `
+        <div class="product-row-head">
+          <span>${s.icon} ${s.name}</span>
+          <div style="display:flex; gap:6px;">
+            <label style="display:flex;align-items:center;gap:4px;font-weight:500;font-size:0.78rem;color:var(--text-dim)">
+              <input type="checkbox" data-active-idx="${i}" ${s.active !== false ? "checked" : ""}> ativo
+            </label>
+            <label style="display:flex;align-items:center;gap:4px;font-weight:500;font-size:0.78rem;color:var(--text-dim)">
+              <input type="checkbox" data-featured-idx="${i}" ${s.featured ? "checked" : ""}> destaque
+            </label>
+            <button class="icon-btn" data-remove-idx="${i}" type="button" title="Remover produto" aria-label="Remover produto">🗑️</button>
+          </div>
+        </div>
+        ${priceFields}
+      `;
+      prodWrap.appendChild(row);
+    });
+    prodWrap.querySelectorAll("[data-remove-idx]").forEach(btn => btn.addEventListener("click", () => {
+      const idx = Number(btn.dataset.removeIdx);
+      if (confirm(`Remover "${CONFIG.services[idx].name}" do catálogo?`)) {
+        CONFIG.services.splice(idx, 1);
+        renderAdminTabBody();
+      }
+    }));
+    document.getElementById("npAddBtn").addEventListener("click", () => {
+      const name = document.getElementById("npName").value.trim();
+      const cat = document.getElementById("npCat").value;
+      const price = parseFloat(document.getElementById("npPrice").value.replace(",", "."));
+      if (!name || !price || price <= 0) { alert("Preencha um nome e um preço válido (maior que zero)."); return; }
+      CONFIG.services.push({ id: "svc_" + Date.now(), category: cat, icon: "✨", name, featured: false, active: true, type: "single", price });
+      renderAdminTabBody();
+    });
+  } else if (adminActiveTab === "cupons") {
+    body.innerHTML = `
+      <p class="form-note" style="margin-bottom:12px">⚠️ Os cupons realmente aceitos no cálculo do valor final vêm do backend (<code>server.js</code>, array <code>COUPONS</code>). Editar aqui muda só a exibição neste navegador. Para criar/editar cupons de verdade, edite o array <code>COUPONS</code> em <code>server.js</code> e suba no GitHub.</p>
+      <div id="adCouponsWrap"></div>
+      <button class="btn btn-ghost btn-sm" id="addCouponBtn" type="button" style="margin-top:6px">➕ Adicionar cupom</button>
+      <p class="form-note" style="margin-top:12px">O cliente digita o código acima do catálogo, no site. O desconto é aplicado sobre o preço de todos os produtos, inclusive na mensagem enviada pro WhatsApp.</p>`;
+    const couponWrap = document.getElementById("adCouponsWrap");
+    (CONFIG.coupons || []).forEach((c, i) => {
+      const row = document.createElement("div");
+      row.className = "notice-row";
+      row.innerHTML = `
+        <input type="checkbox" data-cactive-idx="${i}" ${c.active ? "checked" : ""} title="Ativo" aria-label="Cupom ativo">
+        <input type="text" data-ccode-idx="${i}" value="${c.code.replace(/"/g,'&quot;')}" placeholder="CÓDIGO" style="text-transform:uppercase; max-width:170px;">
+        <input type="number" data-cpercent-idx="${i}" value="${c.percent}" min="1" max="90" style="max-width:80px;" aria-label="Percentual de desconto">
+        <span style="color:var(--text-dim); font-size:0.85rem;">%</span>
+        <button class="icon-btn" data-cremove-idx="${i}" type="button" aria-label="Remover cupom">🗑️</button>
+      `;
+      couponWrap.appendChild(row);
+    });
+    couponWrap.querySelectorAll("[data-cremove-idx]").forEach(btn => btn.addEventListener("click", () => {
+      CONFIG.coupons.splice(Number(btn.dataset.cremoveIdx), 1);
+      renderAdminTabBody();
+    }));
+    document.getElementById("addCouponBtn").addEventListener("click", () => {
+      CONFIG.coupons = CONFIG.coupons || [];
+      CONFIG.coupons.push({ id: "cp_" + Date.now(), code: "NOVOCUPOM", percent: 10, active: true });
+      renderAdminTabBody();
+    });
+  } else if (adminActiveTab === "avisos") {
+    body.innerHTML = `<div id="adNoticesWrap"></div>
+      <button class="btn btn-ghost btn-sm" id="addNoticeBtn" type="button" style="margin-top:6px">➕ Adicionar aviso</button>`;
+    const wrap = document.getElementById("adNoticesWrap");
+    CONFIG.notices.forEach((n, i) => {
+      const row = document.createElement("div");
+      row.className = "notice-row";
+      row.innerHTML = `
+        <input type="checkbox" data-nactive-idx="${i}" ${n.active ? "checked" : ""} title="Ativo" aria-label="Aviso ativo">
+        <input type="text" data-ntext-idx="${i}" value="${n.text.replace(/"/g,'&quot;')}">
+        <select data-ntype-idx="${i}">
+          <option value="info" ${n.type==="info"?"selected":""}>Info</option>
+          <option value="warn" ${n.type==="warn"?"selected":""}>Aviso</option>
+          <option value="promo" ${n.type==="promo"?"selected":""}>Promoção</option>
+        </select>
+        <button class="icon-btn" data-nremove-idx="${i}" type="button" aria-label="Remover aviso">🗑️</button>
+      `;
+      wrap.appendChild(row);
+    });
+    wrap.querySelectorAll("[data-nremove-idx]").forEach(btn => btn.addEventListener("click", () => {
+      CONFIG.notices.splice(Number(btn.dataset.nremoveIdx), 1);
+      renderAdminTabBody();
+    }));
+    document.getElementById("addNoticeBtn").addEventListener("click", () => {
+      CONFIG.notices.push({ id: "n_" + Date.now(), text: "Novo aviso", type: "info", active: true });
+      renderAdminTabBody();
+    });
+  } else if (adminActiveTab === "mensagens") {
+    const m = CONFIG.messages;
+    body.innerHTML = `
+      <div class="admin-grid">
+        <div class="field"><label>Saudação (atendimento online)</label><textarea id="mGreetOn">${m.greetingOnline}</textarea></div>
+        <div class="field"><label>Saudação (atendimento offline)</label><textarea id="mGreetOff">${m.greetingOffline}</textarea></div>
+        <div class="field"><label>Já sou cliente</label><textarea id="mExisting">${m.existingCustomer}</textarea></div>
+        <div class="field"><label>Mensagem final do pedido (enviada pelo WhatsApp)</label><textarea id="mOrderFinal" rows="6">${m.orderFinal}</textarea></div>
+        <p class="form-note">Use {store}, {id}, {service}, {plan} e {price} — eles são substituídos automaticamente.</p>
+      </div>`;
+  }
+}
+
+function saveAdminForm() {
+  const parseHM = (v) => { const [h,m] = v.split(":").map(Number); return (h||0)*60 + (m||0); };
+
+  if (adminActiveTab === "geral") {
+    CONFIG.storeName = document.getElementById("adNome").value.trim() || CONFIG.storeName;
+    CONFIG.logoEmoji = document.getElementById("adLogo").value.trim() || CONFIG.logoEmoji;
+    CONFIG.slogan = document.getElementById("adSlogan").value.trim() || CONFIG.slogan;
+    CONFIG.tagline = document.getElementById("adTag").value.trim() || CONFIG.tagline;
+    CONFIG.whatsappNumber = document.getElementById("adWpp").value.trim() || CONFIG.whatsappNumber;
+    CONFIG.instagramUrl = document.getElementById("adInsta").value.trim();
+    CONFIG.adminPassword = document.getElementById("adPass").value.trim() || CONFIG.adminPassword;
+  } else if (adminActiveTab === "horarios") {
+    const semAbre = parseHM(document.getElementById("adSemAbre").value);
+    const semFecha = parseHM(document.getElementById("adSemFecha").value);
+    [1,2,3,4,5].forEach(d => CONFIG.hours[d] = [semAbre, semFecha]);
+    CONFIG.hours[6] = [parseHM(document.getElementById("adSabAbre").value), parseHM(document.getElementById("adSabFecha").value)];
+    CONFIG.hours[0] = [parseHM(document.getElementById("adDomAbre").value), parseHM(document.getElementById("adDomFecha").value)];
+  } else if (adminActiveTab === "produtos") {
+    document.querySelectorAll(".price-input").forEach(inp => {
+      const val = parseFloat(inp.value.replace(",", ".")) || 0;
+      const idx = Number(inp.dataset.idx);
+      if (inp.dataset.type === "single") CONFIG.services[idx].price = val;
+      else CONFIG.services[idx].tiers[Number(inp.dataset.tier)].price = val;
+    });
+    document.querySelectorAll("[data-active-idx]").forEach(cb => { CONFIG.services[Number(cb.dataset.activeIdx)].active = cb.checked; });
+    document.querySelectorAll("[data-featured-idx]").forEach(cb => { CONFIG.services[Number(cb.dataset.featuredIdx)].featured = cb.checked; });
+  } else if (adminActiveTab === "cupons") {
+    document.querySelectorAll("[data-ccode-idx]").forEach(inp => {
+      const idx = Number(inp.dataset.ccodeIdx);
+      CONFIG.coupons[idx].code = inp.value.trim().toUpperCase() || CONFIG.coupons[idx].code;
+    });
+    document.querySelectorAll("[data-cpercent-idx]").forEach(inp => {
+      const idx = Number(inp.dataset.cpercentIdx);
+      CONFIG.coupons[idx].percent = Math.min(90, Math.max(1, parseInt(inp.value, 10) || 1));
+    });
+    document.querySelectorAll("[data-cactive-idx]").forEach(cb => { CONFIG.coupons[Number(cb.dataset.cactiveIdx)].active = cb.checked; });
+  } else if (adminActiveTab === "avisos") {
+    document.querySelectorAll("[data-ntext-idx]").forEach(inp => { CONFIG.notices[Number(inp.dataset.ntextIdx)].text = inp.value; });
+    document.querySelectorAll("[data-ntype-idx]").forEach(sel => { CONFIG.notices[Number(sel.dataset.ntypeIdx)].type = sel.value; });
+    document.querySelectorAll("[data-nactive-idx]").forEach(cb => { CONFIG.notices[Number(cb.dataset.nactiveIdx)].active = cb.checked; });
+  } else if (adminActiveTab === "mensagens") {
+    CONFIG.messages.greetingOnline = document.getElementById("mGreetOn").value;
+    CONFIG.messages.greetingOffline = document.getElementById("mGreetOff").value;
+    CONFIG.messages.existingCustomer = document.getElementById("mExisting").value;
+    CONFIG.messages.orderFinal = document.getElementById("mOrderFinal").value;
+  }
+
+  if (saveConfig(CONFIG)) { renderEverything(); alert("Alterações salvas neste navegador ✅"); }
+  else alert("Não foi possível salvar. Verifique se o armazenamento local está disponível.");
+}
+
+function openAdmin() {
+  adminOverlay.classList.add("show");
+  adminUnlocked ? renderAdminPanel() : renderAdminLogin();
+}
+function closeAdmin() { adminOverlay.classList.remove("show"); }
+document.getElementById("openAdminLink").addEventListener("click", openAdmin);
+adminOverlay.addEventListener("click", e => { if (e.target === adminOverlay) closeAdmin(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape" && adminOverlay.classList.contains("show")) closeAdmin(); });
+
+/* =========================================================
+   12. BUSCA
+   ========================================================= */
+const searchInput = document.getElementById("searchInput");
+let searchDebounce;
+searchInput.addEventListener("input", () => {
+  clearTimeout(searchDebounce);
+  searchDebounce = setTimeout(() => { searchQuery = searchInput.value; renderCatalog(); }, 150);
+});
+
+document.getElementById("applyCouponBtn").addEventListener("click", () => {
+  const input = document.getElementById("couponInput");
+  const statusEl = document.getElementById("couponStatus");
+  const code = input.value;
+  if (!code.trim()) {
+    statusEl.textContent = "Digite um código de cupom.";
+    statusEl.className = "form-status show err";
+    return;
+  }
+  const found = findCoupon(code);
+  if (found) {
+    appliedCoupon = found;
+    input.value = found.code;
+  } else {
+    appliedCoupon = null;
+    statusEl.textContent = "Cupom inválido ou inativo.";
+    statusEl.className = "form-status show err";
+  }
+  refreshCouponUI();
+  renderFeatured();
+  renderCatalog();
+});
+document.getElementById("couponInput").addEventListener("keydown", (e) => {
+  if (e.key === "Enter") { e.preventDefault(); document.getElementById("applyCouponBtn").click(); }
+});
+document.getElementById("removeCouponBtn").addEventListener("click", () => {
+  appliedCoupon = null;
+  document.getElementById("couponInput").value = "";
+  document.getElementById("couponStatus").className = "form-status";
+  document.getElementById("couponStatus").textContent = "";
+  document.getElementById("removeCouponBtn").style.display = "none";
+  renderFeatured();
+  renderCatalog();
+});
+
+/* =========================================================
+   13. PWA — manifest via data URI + service worker best-effort
+   ========================================================= */
+(function setupPWA() {
+  try {
+    const iconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="%238b5cf6"/><stop offset="1" stop-color="%233fc4ff"/></linearGradient></defs><rect width="192" height="192" rx="40" fill="%23140b33"/><rect width="192" height="192" rx="40" fill="url(%23g)" fill-opacity="0.25"/><text x="96" y="118" font-family="Arial,sans-serif" font-size="76" font-weight="700" fill="white" text-anchor="middle">LD</text></svg>`;
+    const iconDataUri = "data:image/svg+xml," + iconSvg;
+    const manifest = {
+      name: CONFIG.storeName + " — Serviços Digitais",
+      short_name: CONFIG.storeName,
+      start_url: ".",
+      display: "standalone",
+      background_color: "#060312",
+      theme_color: "#0c0724",
+      icons: [{ src: iconDataUri, sizes: "192x192", type: "image/svg+xml" }],
+    };
+    const link = document.createElement("link");
+    link.rel = "manifest";
+    link.href = "data:application/manifest+json," + encodeURIComponent(JSON.stringify(manifest));
+    document.head.appendChild(link);
+
+    const appleIcon = document.createElement("link");
+    appleIcon.rel = "apple-touch-icon";
+    appleIcon.href = iconDataUri;
+    document.head.appendChild(appleIcon);
+
+    if ("serviceWorker" in navigator) {
+      const swCode = `
+        self.addEventListener('install', e => self.skipWaiting());
+        self.addEventListener('activate', e => self.clients.claim());
+        self.addEventListener('fetch', () => {});
+      `;
+      const blob = new Blob([swCode], { type: "application/javascript" });
+      navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(() => {});
+    }
+  } catch (e) { console.warn("PWA setup falhou (não é crítico):", e); }
+})();
+
+/* =========================================================
+   14. INIT
+   ========================================================= */
+function renderEverything() {
+  renderNotices();
+  renderBrand();
+  renderCategoryChips();
+  renderCategoryCards();
+  renderFeatured();
+  renderCatalog();
+  renderSteps();
+  renderFaq();
+  refreshStatus();
+}
+/* =========================================================
+   15. SINCRONIZA CATÁLOGO E CONFIGURAÇÃO PÚBLICA COM O BACKEND
+   Se o backend estiver fora do ar, o site continua funcionando com os
+   dados salvos localmente — mas a tela de pagamento avisa que a chave
+   Pix não está disponível, e os pedidos não ficam registrados.
+   ========================================================= */
+async function syncCatalogFromBackend() {
+  try {
+    const data = await apiGet("/catalog");
+    if (Array.isArray(data.services) && data.services.length) CONFIG.services = data.services;
+    if (Array.isArray(data.coupons)) CONFIG.coupons = data.coupons;
+  } catch (e) {
+    console.warn("Não foi possível sincronizar o catálogo com o backend (usando dados locais):", e.message);
+  }
+}
+async function syncPublicConfig() {
+  try {
+    const data = await apiGet("/public-config");
+    PUBLIC_CFG = data;
+    if (data.whatsappNumber) CONFIG.whatsappNumber = data.whatsappNumber;
+  } catch (e) {
+    console.warn("Não foi possível carregar a configuração pública do backend:", e.message);
+  }
+}
+
+(async function init() {
+  await Promise.all([syncCatalogFromBackend(), syncPublicConfig()]);
+  renderEverything();
+  bindStaticActions();
+  setInterval(refreshStatus, 30000);
+  setInterval(() => { syncCatalogFromBackend(); syncPublicConfig(); }, 5 * 60 * 1000);
+})();
+</script>
+<script>
+/* ===================== PAINEL DE PEDIDOS (/admin) =====================
+   Tudo isolado numa IIFE própria para nunca colidir com as funções e
+   variáveis do site principal (loja). Reaproveita API_BASE e money()
+   já definidos no script principal, acima. */
+(function() {
+  const isAdminRoute = /^\/admin\/?$/.test(location.pathname);
+  const siteRootEl = document.getElementById("siteRoot");
+  const adminRootEl = document.getElementById("adminRoot");
+  if (siteRootEl) siteRootEl.style.display = isAdminRoute ? "none" : "";
+  if (adminRootEl) adminRootEl.style.display = isAdminRoute ? "block" : "none";
+  if (!isAdminRoute) return; // fora de /admin, nem inicializa o painel
+
+
+const statusLabels = { pending: "🟡 Pendente", review: "🔵 Em análise", paid: "🟢 Pago", completed: "🟣 Concluído", cancelled: "🔴 Cancelado" };
+
+async function admApi(path, opts = {}) {
+  const res = await fetch(API_BASE + path, { credentials: "include", headers: { "Content-Type": "application/json" }, ...opts });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) { const e = new Error(data.error || "Erro na requisição."); e.status = res.status; throw e; }
+  return data;
+}
+function fmtDate(ts) { return new Date(ts).toLocaleString("pt-BR", { dateStyle: "short", timeStyle: "short" }); }
+
+/* ---- login ---- */
+const loginScreen = document.getElementById("loginScreen");
+const appScreen = document.getElementById("appScreen");
+
+async function checkAuth() {
+  try {
+    const { authenticated } = await admApi("/admin/me");
+    if (authenticated) { showApp(); } else { showLogin(); }
+  } catch (e) { showLogin(); }
+}
+function showLogin() { loginScreen.style.display = ""; appScreen.style.display = "none"; }
+function showApp() { loginScreen.style.display = "none"; appScreen.style.display = ""; loadOrders(); }
+
+document.getElementById("loginBtn").addEventListener("click", doLogin);
+document.getElementById("loginPass").addEventListener("keydown", e => { if (e.key === "Enter") doLogin(); });
+async function doLogin() {
+  const pass = document.getElementById("loginPass").value;
+  const msg = document.getElementById("loginMsg");
+  msg.textContent = ""; msg.className = "status-msg";
+  try {
+    await admApi("/admin/login", { method: "POST", body: JSON.stringify({ password: pass }) });
+    document.getElementById("loginPass").value = "";
+    showApp();
+  } catch (e) {
+    msg.textContent = e.message; msg.className = "status-msg err";
+  }
+}
+document.getElementById("logoutBtn").addEventListener("click", async () => {
+  await admApi("/admin/logout", { method: "POST" }).catch(() => {});
+  showLogin();
+});
+
+/* ---- filtros ---- */
+let filterDebounce = null;
+["admSearchInput", "statusFilter", "dateFrom", "dateTo"].forEach(id => {
+  document.getElementById(id).addEventListener("input", () => { clearTimeout(filterDebounce); filterDebounce = setTimeout(loadOrders, 300); });
+});
+document.getElementById("clearFiltersBtn").addEventListener("click", () => {
+  document.getElementById("admSearchInput").value = "";
+  document.getElementById("statusFilter").value = "";
+  document.getElementById("dateFrom").value = "";
+  document.getElementById("dateTo").value = "";
+  loadOrders();
+});
+
+/* ---- lista de pedidos ---- */
+async function loadOrders() {
+  const q = document.getElementById("admSearchInput").value;
+  const status = document.getElementById("statusFilter").value;
+  const dateFromEl = document.getElementById("dateFrom").value;
+  const dateToEl = document.getElementById("dateTo").value;
+  const params = new URLSearchParams();
+  if (q) params.set("q", q);
+  if (status) params.set("status", status);
+  if (dateFromEl) params.set("dateFrom", String(new Date(dateFromEl + "T00:00:00").getTime()));
+  if (dateToEl) params.set("dateTo", String(new Date(dateToEl + "T23:59:59").getTime()));
+
+  try {
+    const data = await admApi("/admin/orders?" + params.toString());
+    renderStats(data.counts);
+    renderOrders(data.orders);
+  } catch (e) {
+    if (e.status === 401) { showLogin(); return; }
+    alert("Erro ao carregar pedidos: " + e.message);
+  }
+}
+
+function renderStats(c) {
+  const items = [
+    ["Pendentes", c.pending, "warn"], ["Em análise", c.review, "info"], ["Pagos", c.paid, "success"],
+    ["Concluídos", c.completed, "purple-soft"], ["Total", c.total, "text"],
+  ];
+  document.getElementById("statsRow").innerHTML = items.map(([label, n, color]) =>
+    `<div class="stat"><div class="n" style="color:var(--${color})">${n}</div><div class="lbl">${label}</div></div>`
+  ).join("");
+}
+
+function renderOrders(orders) {
+  const list = document.getElementById("ordersList");
+  document.getElementById("emptyMsg").style.display = orders.length ? "none" : "";
+  list.innerHTML = orders.map(o => `
+    <div class="order-card">
+      <div class="top">
+        <div>
+          <div class="order-id">${o.id}</div>
+          <div class="order-title">${o.serviceName} — ${o.planLabel}</div>
+        </div>
+        <span class="badge badge-${o.status}">${statusLabels[o.status]}</span>
+      </div>
+      <div class="order-meta">👤 ${o.customerName}${o.customerPhone ? " · 📱 " + o.customerPhone : ""}</div>
+      <div class="order-meta">💰 ${money(o.amount)} · 🕒 ${fmtDate(o.createdAt)}</div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:10px" data-edit="${o.id}" type="button">✏️ Ver / editar</button>
+    </div>
+  `).join("");
+  list.querySelectorAll("[data-edit]").forEach(btn => btn.addEventListener("click", () => openDetail(btn.dataset.edit)));
+}
+
+/* ---- detalhe / edição ---- */
+const detailOverlay = document.getElementById("admDetailOverlay");
+const detailBox = document.getElementById("detailBox");
+detailOverlay.addEventListener("click", e => { if (e.target === detailOverlay) closeDetail(); });
+function closeDetail() { detailOverlay.classList.remove("show"); }
+
+async function openDetail(id) {
+  let o;
+  try { o = await admApi("/admin/orders/" + encodeURIComponent(id)); }
+  catch (e) { alert("Erro ao carregar pedido: " + e.message); return; }
+
+  detailBox.innerHTML = `
+    <button class="modal-close" id="closeDetailBtn">✕</button>
+    <h2>📦 ${o.serviceName} — ${o.planLabel}</h2>
+    <p class="order-id">${o.id}</p>
+    <div class="field"><label>Cliente</label><div>${o.customerName}${o.customerPhone ? " · " + o.customerPhone : " (telefone não informado)"}</div></div>
+    <div class="row">
+      <div class="field"><label>Valor</label><div><strong>${money(o.amount)}</strong></div></div>
+      <div class="field"><label>Cupom</label><div>${o.couponCode || "—"}</div></div>
+    </div>
+    <div class="field">
+      <label for="statusSelect">Status do pedido</label>
+      <select id="statusSelect">
+        ${Object.entries(statusLabels).map(([v, l]) => `<option value="${v}" ${v === o.status ? "selected" : ""}>${l}</option>`).join("")}
+      </select>
+    </div>
+    <div class="field">
+      <label for="notesInput">Observações internas (não visíveis ao cliente)</label>
+      <textarea id="notesInput">${o.internalNotes || ""}</textarea>
+    </div>
+    <button class="btn btn-primary" id="saveOrderBtn" type="button">Salvar alterações</button>
+    <p class="status-msg" id="saveMsg"></p>
+    <h2 style="margin-top:20px; font-size:0.95rem">Histórico</h2>
+    ${o.history.map(h => `<div class="history-item"><span>${fmtDate(h.changed_at)}</span><span>→ ${statusLabels[h.status] || h.status}${h.note ? " · " + h.note : ""}</span></div>`).join("") || `<p class="muted">Sem histórico.</p>`}
+  `;
+  document.getElementById("closeDetailBtn").addEventListener("click", closeDetail);
+  document.getElementById("saveOrderBtn").addEventListener("click", () => saveOrder(o.id));
+  detailOverlay.classList.add("show");
+}
+
+async function saveOrder(id) {
+  const status = document.getElementById("statusSelect").value;
+  const internalNotes = document.getElementById("notesInput").value;
+  const msg = document.getElementById("saveMsg");
+  msg.textContent = "Salvando..."; msg.className = "status-msg";
+  try {
+    await admApi("/admin/orders/" + encodeURIComponent(id), { method: "PUT", body: JSON.stringify({ status, internalNotes }) });
+    msg.textContent = "✅ Alterações salvas."; msg.className = "status-msg ok";
+    loadOrders();
+    setTimeout(() => openDetail(id), 400); // recarrega o histórico atualizado
+  } catch (e) {
+    msg.textContent = "Erro: " + e.message; msg.className = "status-msg err";
+  }
+}
+
+  checkAuth();
+})();
+</script>
+</body>
+</html>
