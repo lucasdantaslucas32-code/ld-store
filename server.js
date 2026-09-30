@@ -59,6 +59,23 @@ const SERVICES = [
 // Exemplo: { id: "cp1", code: "BEMVINDO10", percent: 10, active: true }
 const COUPONS = [];
 
+/**
+ * HORÁRIO OFICIAL DA LOJA — fonte da verdade, igual para todos os
+ * visitantes (antes, o horário só era salvo no navegador de quem
+ * editava no painel embutido do site, então cada aparelho mostrava um
+ * horário diferente). Minutos desde 00:00. Chave: 0=domingo ... 6=sábado.
+ * Para mudar, edite aqui e suba no GitHub — o Render publica sozinho.
+ */
+const STORE_HOURS = {
+  0: [14 * 60, 20 * 60], // domingo
+  1: [12 * 60, 22 * 60], // segunda
+  2: [12 * 60, 22 * 60], // terça
+  3: [12 * 60, 22 * 60], // quarta
+  4: [12 * 60, 22 * 60], // quinta
+  5: [12 * 60, 22 * 60], // sexta
+  6: [12 * 60, 22 * 60], // sábado
+};
+
 function round2(n) { return Math.round((Number(n) + Number.EPSILON) * 100) / 100; }
 function getService(id) { return SERVICES.find(s => s.id === id && s.active !== false) || null; }
 function getCoupon(code) {
@@ -248,6 +265,7 @@ app.get("/api/public-config", (req, res) => {
     pixKeyType: process.env.PIX_KEY_TYPE || "",       // ex.: "Aleatória", "CPF", "E-mail", "Telefone"
     pixHolderName: process.env.PIX_HOLDER_NAME || "",
     whatsappNumber: process.env.WHATSAPP_NUMBER || "", // somente dígitos, com DDI+DDD
+    hours: STORE_HOURS,
   });
 });
 
