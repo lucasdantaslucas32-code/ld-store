@@ -1,7 +1,7 @@
 {
   "name": "ld-store",
-  "version": "2.0.0",
-  "description": "LD STORE — Pix manual com confirmação e painel administrativo de pedidos",
+  "version": "3.0.0",
+  "description": "LD STORE — Pix manual, painel administrativo completo e catálogo de jogos (Postgres)",
   "main": "server.js",
   "engines": {
     "node": ">=18.0.0"
@@ -10,7 +10,7 @@
     "start": "node server.js"
   },
   "dependencies": {
-    "better-sqlite3": "^11.3.0",
+    "pg": "^8.13.0",
     "cors": "^2.8.5",
     "express": "^4.19.2",
     "express-rate-limit": "^7.4.0",
