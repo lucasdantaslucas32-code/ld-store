@@ -190,6 +190,26 @@ async function initDb() {
     );
   `);
 
+  // Avaliações dos clientes — uma por pedido, só liberada quando o pedido
+  // está "completed" (ligado a um pedido de verdade, nunca inventado).
+  // Fica salva permanentemente (bem mais que o 1 mês mínimo pedido).
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS reviews (
+      id TEXT PRIMARY KEY,
+      order_id TEXT NOT NULL,
+      service_name TEXT,
+      customer_name TEXT NOT NULL,
+      rating INTEGER NOT NULL CHECK (rating BETWEEN 1 AND 5),
+      comment TEXT,
+      purchased_at BIGINT NOT NULL,
+      created_at BIGINT NOT NULL,
+      visible BOOLEAN NOT NULL DEFAULT true,
+      is_anonymous BOOLEAN NOT NULL DEFAULT false
+    );
+  `);
+  await pool.query(`CREATE UNIQUE INDEX IF NOT EXISTS idx_reviews_order_id ON reviews (order_id);`);
+  await pool.query(`CREATE INDEX IF NOT EXISTS idx_reviews_created_at ON reviews (created_at);`);
+
   // Semeia o banco só se ainda não existir aquela chave (não sobrescreve
   // nada que já exista — importante para não apagar edições já feitas).
   const seeds = {
@@ -300,6 +320,50 @@ async function updateOrderStatus(id, status, note) {
 }
 async function updateInternalNotes(id, notes) {
   await pool.query(`UPDATE orders SET internal_notes = $1, updated_at = $2 WHERE id = $3`, [notes || "", Date.now(), id]);
+}
+
+/* ---- avaliações ---- */
+function maskCustomerName(name) {
+  const parts = String(name || "").trim().split(/\s+/).filter(Boolean);
+  if (!parts.length) return "Cliente";
+  const first = parts[0];
+  const lastInitial = parts.length > 1 ? parts[parts.length - 1][0].toUpperCase() + "." : "";
+  return lastInitial ? `${first} ${lastInitial}` : first;
+}
+
+async function insertReview({ id, orderId, serviceName, customerName, rating, comment, purchasedAt, isAnonymous }) {
+  const now = Date.now();
+  await pool.query(
+    `INSERT INTO reviews (id, order_id, service_name, customer_name, rating, comment, purchased_at, created_at, visible, is_anonymous)
+     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,true,$9)`,
+    [id, orderId, serviceName, customerName, rating, comment || null, purchasedAt, now, !!isAnonymous]
+  );
+}
+async function getReviewByOrderId(orderId) {
+  const { rows } = await pool.query(`SELECT * FROM reviews WHERE order_id = $1`, [orderId]);
+  return rows[0] || null;
+}
+async function listPublicReviews(limit = 50) {
+  const { rows } = await pool.query(
+    `SELECT * FROM reviews WHERE visible = true ORDER BY created_at DESC LIMIT $1`, [limit]
+  );
+  return rows;
+}
+async function reviewStats() {
+  const { rows } = await pool.query(
+    `SELECT COUNT(*)::int as n, COALESCE(AVG(rating),0)::float as avg FROM reviews WHERE visible = true`
+  );
+  return rows[0];
+}
+async function listAllReviewsAdmin(limit = 300) {
+  const { rows } = await pool.query(`SELECT * FROM reviews ORDER BY created_at DESC LIMIT $1`, [limit]);
+  return rows;
+}
+async function setReviewVisible(id, visible) {
+  await pool.query(`UPDATE reviews SET visible = $1 WHERE id = $2`, [visible, id]);
+}
+async function deleteReview(id) {
+  await pool.query(`DELETE FROM reviews WHERE id = $1`, [id]);
 }
 
 async function searchOrders({ q, status, dateFrom, dateTo, limit = 200 }) {
@@ -527,6 +591,86 @@ function toPublicOrder(o) {
     amount: Number(o.final_price), customerName: o.customer_name, createdAt: Number(o.created_at), updatedAt: Number(o.updated_at),
   };
 }
+
+/* ---- avaliações (cliente avalia um pedido já concluído) ---- */
+const reviewLimiter = rateLimit({
+  windowMs: 10 * 60 * 1000, limit: 10, standardHeaders: true, legacyHeaders: false,
+  message: { error: "Muitas tentativas. Tente novamente em alguns minutos." },
+});
+
+app.post("/api/orders/:id/review", reviewLimiter, async (req, res) => {
+  try {
+    const order = await getOrder(req.params.id);
+    if (!order) return res.status(404).json({ error: "Pedido não encontrado." });
+    if (order.status !== "completed") {
+      return res.status(400).json({ error: "Só é possível avaliar pedidos já concluídos." });
+    }
+    const existing = await getReviewByOrderId(order.id);
+    if (existing) return res.status(409).json({ error: "Este pedido já foi avaliado." });
+
+    const { rating, comment, anonymous } = req.body || {};
+    const r = Number(rating);
+    if (!Number.isInteger(r) || r < 1 || r > 5) return res.status(400).json({ error: "A nota precisa ser de 1 a 5." });
+    if (comment && String(comment).length > 500) return res.status(400).json({ error: "Comentário muito longo (máx. 500 caracteres)." });
+
+    const id = "rev-" + Date.now().toString(36) + crypto.randomBytes(3).toString("hex");
+    await insertReview({
+      id, orderId: order.id, serviceName: order.service_name, customerName: order.customer_name,
+      rating: r, comment: comment ? String(comment).trim() : null, purchasedAt: Number(order.created_at),
+      isAnonymous: !!anonymous,
+    });
+    res.status(201).json({ ok: true });
+  } catch (err) {
+    console.error("Erro ao salvar avaliação:", err);
+    res.status(500).json({ error: "Erro interno ao salvar avaliação." });
+  }
+});
+
+// Pública: vitrine de avaliações (nome do cliente mostrado parcialmente, por privacidade)
+app.get("/api/reviews", async (req, res) => {
+  try {
+    const [rows, stats] = await Promise.all([listPublicReviews(50), reviewStats()]);
+    res.json({
+      average: Math.round((stats.avg || 0) * 10) / 10,
+      count: stats.n,
+      reviews: rows.map(r => ({
+        id: r.id, serviceName: r.service_name,
+        customerName: r.is_anonymous ? "Cliente anônimo" : maskCustomerName(r.customer_name),
+        rating: r.rating, comment: r.comment, purchasedAt: Number(r.purchased_at), createdAt: Number(r.created_at),
+        anonymous: !!r.is_anonymous,
+      })),
+    });
+  } catch (err) {
+    console.error("Erro ao carregar avaliações:", err);
+    res.status(500).json({ error: "Erro ao carregar avaliações." });
+  }
+});
+
+/* ---- moderação de avaliações (protegido) ---- */
+app.get("/api/admin/reviews", requireAdmin, async (req, res) => {
+  try {
+    const rows = await listAllReviewsAdmin();
+    res.json({
+      reviews: rows.map(r => ({
+        id: r.id, orderId: r.order_id, serviceName: r.service_name, customerName: r.customer_name,
+        rating: r.rating, comment: r.comment, purchasedAt: Number(r.purchased_at), createdAt: Number(r.created_at),
+        visible: r.visible, anonymous: !!r.is_anonymous,
+      })),
+    });
+  } catch (err) {
+    res.status(500).json({ error: "Erro ao carregar avaliações." });
+  }
+});
+app.put("/api/admin/reviews/:id", requireAdmin, async (req, res) => {
+  const { visible } = req.body || {};
+  if (typeof visible !== "boolean") return res.status(400).json({ error: "Envie { visible: true|false }." });
+  await setReviewVisible(req.params.id, visible);
+  res.json({ ok: true });
+});
+app.delete("/api/admin/reviews/:id", requireAdmin, async (req, res) => {
+  await deleteReview(req.params.id);
+  res.json({ ok: true });
+});
 
 /* ---- painel administrativo de pedidos (protegido) ---- */
 app.get("/api/admin/orders", requireAdmin, async (req, res) => {
